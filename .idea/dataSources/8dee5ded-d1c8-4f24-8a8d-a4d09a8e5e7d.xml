@@ -16,8 +16,9 @@
     <table id="10" parent="2" name="TV"/>
     <column id="11" parent="7" name="id">
       <Position>1</Position>
-      <DataType>int(6) unsigned|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="12" parent="7" name="name">
       <Position>2</Position>
@@ -55,8 +56,9 @@
     </column>
     <column id="19" parent="9" name="id">
       <Position>1</Position>
-      <DataType>int(6) unsigned|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="20" parent="9" name="make">
       <Position>2</Position>
@@ -84,8 +86,9 @@
     </key>
     <column id="25" parent="10" name="id">
       <Position>1</Position>
-      <DataType>int(6) unsigned|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="26" parent="10" name="make">
       <Position>2</Position>

@@ -125,7 +125,7 @@ public class Create_New_Customer {
 
             currentCustomerID = DB_Display.getnewCustomerID();                    // get customer ID
 
-            DB_Edit.saveCustomer(currentCustomerID,customerName,customerAddress); // save customer details
+            DB_Edit.saveCustomer(customerName,customerAddress); // save customer details
 
             newCustomerIDLabel.setVisible(true);                                  // show label
             newCustomerID.setVisible(true);                                       // show label

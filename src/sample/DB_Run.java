@@ -20,67 +20,6 @@ import java.sql.*;
 //---------------//
 public class DB_Run {
 
-        /**
-         * @param args the command line arguments
-         */
-        public static void main(String[] args) throws SQLException {
-
-
-        //    connectDB();
-
-         //   getProductNum();
-
-        }
-
-
-    /**
-     * connectDB
-     *
-     * Establishes connection to
-     * local MySQL database : DBProject
-     */
-    public static void connectDB(){
-
-        System.out.println("-------- MySQL JDBC Connection Testing ------------");      //
-        try {                                                                           //
-            Class.forName("com.mysql.jdbc.Driver");                                     //
-        } catch (ClassNotFoundException e) {                                            //      Testing the JDBC
-            System.out.println("MySQL JDBC Driver Not found: Please import");           //        connection
-            e.printStackTrace();                                                        //
-            return;                                                                     //
-        }                                                                               //    Outputs error message
-        System.out.println("MySQL JDBC Driver Registered!");                            //   in console if not found
-        Connection connection = null;                                                   //
-
-
-        try {
-            connection = DriverManager                                                                          //
-                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
-                            "root", "Ilikefood1");                                               //
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");              // Print error if connection failed
-            e.printStackTrace();
-            return;
-        }
-
-        if (connection != null) {                                                       // while there is a connection
-            System.out.println("Database connection established");                      // Test : print confirmation connected to console
-
-
-
-
-
-
-
-
-
-        } else {
-            System.out.println("Failed to make connection!");                           // if connection failed print error to console
-        }
-
-
-    }
 
 
     /**

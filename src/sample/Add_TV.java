@@ -133,7 +133,7 @@ public class Add_TV {
 
             newTV.setPrice(price);                                          // set price of new tv object
 
-            DB_Edit.saveTV(newTV.getProductID(),make, screensize, type, price );  // Save TV to product DB
+            DB_Edit.saveTV(make, screensize, type, price );  // Save TV to product DB
 
             ProductSaved.setVisible(true);
 

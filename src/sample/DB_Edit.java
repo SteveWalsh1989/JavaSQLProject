@@ -31,7 +31,7 @@ public class DB_Edit {
      * <p>
      * adds Phone to DB
      */
-    public static void savePhone(int id, String make, String model, int storage, double price) {
+    public static void savePhone( String make, String model, int storage, double price) {
 
         try {                                                                                                   //
             Class.forName("com.mysql.jdbc.Driver");                                                             //
@@ -57,12 +57,14 @@ public class DB_Edit {
         if (connection != null) {                                                       // while there is a connection
             PreparedStatement savePhone = null;
             try {
-                savePhone = connection.prepareCall("INSERT INTO Phone VALUES(?, ?, ?, ?, ?)");
-                savePhone.setInt(1, id);
-                savePhone.setString(2, make);
-                savePhone.setString(3, model);
-                savePhone.setInt(4, storage);
-                savePhone.setDouble(5, price);
+
+
+
+                savePhone = connection.prepareCall("INSERT INTO Phone ( make, model, storage, price) VALUES ( ?, ?, ?, ?)");
+                savePhone.setString(1, make);
+                savePhone.setString(2, model);
+                savePhone.setInt(3, storage);
+                savePhone.setDouble(4, price);
 
                 savePhone.executeUpdate();
 
@@ -79,7 +81,7 @@ public class DB_Edit {
      * <p>
      * adds tv to DB
      */
-    public static void saveTV(int id, String make, int screenSize, String type, double price) {
+    public static void saveTV( String make, int screenSize, String type, double price) {
 
         try {                                                                                                   //
             Class.forName("com.mysql.jdbc.Driver");                                                             //
@@ -104,12 +106,12 @@ public class DB_Edit {
 
             PreparedStatement saveTV = null;
             try {
-                saveTV = connection.prepareCall("INSERT INTO TV VALUES(?, ?, ?, ?, ?)");
-                saveTV.setInt(1, id);
-                saveTV.setString(2, make);
-                saveTV.setInt(3, screenSize);
-                saveTV.setString(4, type);
-                saveTV.setDouble(5, price);
+
+                saveTV = connection.prepareCall("INSERT INTO TV ( make, screen_size, type, price) VALUES(?, ?, ?, ?)");
+                saveTV.setString(1, make);
+                saveTV.setInt(2, screenSize);
+                saveTV.setString(3, type);
+                saveTV.setDouble(4, price);
 
                 int i = saveTV.executeUpdate();
                 connection.close();
@@ -125,7 +127,7 @@ public class DB_Edit {
      * <p>
      * adds cuwtomer to DB
      */
-    public static void saveCustomer(int cstID, String cstName, String cstAddress) {
+    public static void saveCustomer( String cstName, String cstAddress) {
 
         try {                                                                                                   //
             Class.forName("com.mysql.jdbc.Driver");                                                             //
@@ -152,10 +154,9 @@ public class DB_Edit {
         if (connection != null) {                                                       // while there is a connection
             PreparedStatement saveCustomer = null;
             try {
-                saveCustomer = connection.prepareCall("INSERT INTO Customer VALUES(?, ?, ?)");
-                saveCustomer.setInt(1, cstID);
-                saveCustomer.setString(2, cstName);
-                saveCustomer.setString(3, cstAddress);
+                saveCustomer = connection.prepareCall("INSERT INTO Customer VALUES( ?, ?)");
+                saveCustomer.setString(1, cstName);
+                saveCustomer.setString(2, cstAddress);
 
                 int i = saveCustomer.executeUpdate();
 

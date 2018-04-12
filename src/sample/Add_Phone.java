@@ -116,7 +116,7 @@ public class Add_Phone {
 
             newPhone.setPrice(price);                                       // set price
 
-            DB_Edit.savePhone(newPhone.getProductID(),make, model, Integer.parseInt(storage), price );  // add Phone to product DB
+            DB_Edit.savePhone(make, model, Integer.parseInt(storage), price );  // add Phone to product DB
 
             phoneSaved.setVisible(true);
 
