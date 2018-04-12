@@ -9,13 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import static sample.Main.currentCustomerID;
+import static sample.Controller.currentCustomerID;
 
 /**
  * Created by Steve on 11/04/2018.
  */
-public class Create_New_Customer {
+public class OPT3_Create_New_Customer {
 
 
 
@@ -139,7 +138,7 @@ public class Create_New_Customer {
 
         returnHomeButton.setOnAction(e-> {
 
-            Display_Options.load_Display_Options(primaryStage);
+            OPT0_Display_Options.load_Display_Options(primaryStage);
 
 
         });

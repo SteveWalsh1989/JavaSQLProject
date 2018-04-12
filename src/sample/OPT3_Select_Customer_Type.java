@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class Select_Customer_Type {
+public class OPT3_Select_Customer_Type {
 
 
 
@@ -81,7 +81,7 @@ public class Select_Customer_Type {
 
         newCustomer.setOnAction(e-> {                                   //  Option 1: new customer
 
-            Create_New_Customer.load_Create_New_Customer(primaryStage); // load Create_New_Customer scene
+            OPT3_Create_New_Customer.load_Create_New_Customer(primaryStage); // load OPT3_Create_New_Customer scene
 
         });
 
@@ -91,7 +91,7 @@ public class Select_Customer_Type {
 
 
 
-            Log_Existing_Customer.load_Log_Existing_Customer(primaryStage);  // load Log_Existing_Customer scene
+            OPT3_Log_Existing_Customer.load_Log_Existing_Customer(primaryStage);  // load OPT3_Log_Existing_Customer scene
 
         });
 

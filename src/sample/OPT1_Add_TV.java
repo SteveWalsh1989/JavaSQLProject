@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class Add_TV {
+public class OPT1_Add_TV {
 
 
 
@@ -166,7 +166,7 @@ public class Add_TV {
 
         returnHomeButton.setOnAction(e-> {
 
-            Display_Options.load_Display_Options(primaryStage);
+            OPT0_Display_Options.load_Display_Options(primaryStage);
 
 
         });

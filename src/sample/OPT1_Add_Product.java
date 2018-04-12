@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class Add_Product {
+public class OPT1_Add_Product {
 
 
 
@@ -78,7 +78,7 @@ public class Add_Product {
 
         AddPhone.setOnAction((ActionEvent e) -> {
 
-               Add_Phone.load_Add_Phone(primaryStage);                             // switch to create Phone screen
+               OPT1_Add_Phone.load_Add_Phone(primaryStage);                             // switch to create Phone screen
 
         });
 
@@ -86,7 +86,7 @@ public class Add_Product {
 
         AddTV.setOnAction(e-> {
 
-            Add_TV.load_Add_TV(primaryStage);                                     // switch to create TV screen
+            OPT1_Add_TV.load_Add_TV(primaryStage);                                     // switch to create TV screen
 
         });
 

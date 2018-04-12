@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class Display_Options {
+public class OPT0_Display_Options {
 
 
 
@@ -78,7 +78,7 @@ public class Display_Options {
                 createOrder,displayOrders,exit );
 
 
-        primaryStage.setTitle("Home");                                                       // set title of primary stage
+        primaryStage.setTitle("Database Design Project");                                    // set title of primary stage
 
         primaryStage.setScene(homePage);                                                     // add homePage scene to primary stage
 
@@ -104,9 +104,10 @@ public class Display_Options {
 
         createProduct.setOnAction(e-> {
 
-        Add_Product.load_Add_Options(primaryStage);                           // load up the Add_Product Scene
 
-         DB_Run.getProductNum();                                              // initialises the product count variable
+            OPT1_Add_Product.load_Add_Options(primaryStage);                           // load up the OPT1_Add_Product Scene
+
+         DB_Display.getProductNum();                                              // initialises the product count variable
 
         });
 
@@ -115,7 +116,7 @@ public class Display_Options {
         //---------------------------------------//
         displayProducts.setOnAction(e-> {
 
-        Display_Products.load_Display_Products(primaryStage);                 // sets display_Products scene
+        OPT2_Display_Products.load_Display_Products(primaryStage);                 // sets display_Products scene
 
         });
 
@@ -124,7 +125,7 @@ public class Display_Options {
         //---------------------------------------//
         createOrder.setOnAction(e-> {
 
-            Select_Customer_Type.load_Select_Customer_Type(primaryStage);     // sets Select_Customer_Type scene
+            OPT3_Select_Customer_Type.load_Select_Customer_Type(primaryStage);     // sets OPT3_Select_Customer_Type scene
 
         });
 

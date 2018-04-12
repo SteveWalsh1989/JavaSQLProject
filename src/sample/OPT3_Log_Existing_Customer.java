@@ -14,7 +14,7 @@ import static sample.Main.currentCustomerID;
 /**
  * Created by Steve on 11/04/2018.
  */
-public class Log_Existing_Customer {
+public class OPT3_Log_Existing_Customer {
 
 
 
@@ -134,7 +134,7 @@ public class Log_Existing_Customer {
 
         returnHomeButton.setOnAction(e-> {
 
-            Display_Options.load_Display_Options(primaryStage);
+            OPT0_Display_Options.load_Display_Options(primaryStage);
 
 
         });

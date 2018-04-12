@@ -26,7 +26,7 @@ import java.sql.SQLException;
 //-----------------//
 //    Class        //
 //-----------------//
-public class Display_Products {
+public class OPT2_Display_Products {
 
 
 
@@ -175,7 +175,7 @@ public class Display_Products {
 
         returnButton.setOnAction(e-> {                                 // Return home when adding new product
 
-            Display_Options.load_Display_Options(primaryStage);        // return to home page
+            OPT0_Display_Options.load_Display_Options(primaryStage);        // return to home page
 
             displayPhonesBox.setContent(null);                         // remove data from scrollPane
 
