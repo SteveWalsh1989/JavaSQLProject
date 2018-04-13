@@ -1,10 +1,17 @@
-package sample;
+package sample.View.Create_Product;
 
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
 //-----------------//
 //    Imports      //
 //-----------------//
@@ -23,7 +30,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT1_Add_Product {
+public class Add_Product {
 
 
 
@@ -78,7 +85,7 @@ public class OPT1_Add_Product {
 
         AddPhone.setOnAction((ActionEvent e) -> {
 
-               OPT1_Add_Phone.load_Add_Phone(primaryStage);                             // switch to create Phone screen
+               Add_Phone.load_Add_Phone(primaryStage);                             // switch to create Phone screen
 
         });
 
@@ -86,7 +93,7 @@ public class OPT1_Add_Product {
 
         AddTV.setOnAction(e-> {
 
-            OPT1_Add_TV.load_Add_TV(primaryStage);                                     // switch to create TV screen
+            Add_TV.load_Add_TV(primaryStage);                                     // switch to create TV screen
 
         });
 

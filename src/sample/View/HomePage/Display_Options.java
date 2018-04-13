@@ -1,14 +1,18 @@
-package sample;
+package sample.View.HomePage;
 
 
 
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
-
-
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
 
 //-----------------//
 //    Imports      //
@@ -21,12 +25,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.Database.DB_Display;
+import sample.View.Create_Order.Choose_Customer_Type;
+import sample.View.Create_Product.Add_Product;
+import sample.View.Display_Products.Display_Products;
 
 
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT0_Display_Options {
+public class Display_Options {
 
 
 
@@ -78,7 +86,7 @@ public class OPT0_Display_Options {
                 createOrder,displayOrders,exit );
 
 
-        primaryStage.setTitle("Database Design Project");                                    // set title of primary stage
+        primaryStage.setTitle("R00151053 Project");                                          // set title of primary stage
 
         primaryStage.setScene(homePage);                                                     // add homePage scene to primary stage
 
@@ -105,7 +113,7 @@ public class OPT0_Display_Options {
         createProduct.setOnAction(e-> {
 
 
-            OPT1_Add_Product.load_Add_Options(primaryStage);                           // load up the OPT1_Add_Product Scene
+            Add_Product.load_Add_Options(primaryStage);                           // load up the Add_Product Scene
 
          DB_Display.getProductNum();                                              // initialises the product count variable
 
@@ -116,7 +124,7 @@ public class OPT0_Display_Options {
         //---------------------------------------//
         displayProducts.setOnAction(e-> {
 
-        OPT2_Display_Products.load_Display_Products(primaryStage);                 // sets display_Products scene
+        Display_Products.load_Display_Products(primaryStage);                 // sets display_Products scene
 
         });
 
@@ -125,7 +133,7 @@ public class OPT0_Display_Options {
         //---------------------------------------//
         createOrder.setOnAction(e-> {
 
-            OPT3_Select_Customer_Type.load_Select_Customer_Type(primaryStage);     // sets OPT3_Select_Customer_Type scene
+            Choose_Customer_Type.load_Select_Customer_Type(primaryStage);     // sets Choose_Customer_Type scene
 
         });
 

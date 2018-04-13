@@ -1,4 +1,4 @@
-package sample;
+package sample.Database;
 /**
  *
  *   Contains methods that allow for displaying data to the database
@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sample.Model.Product;
 
 import java.sql.*;
 
@@ -33,7 +34,7 @@ public class DB_Display {
      * displayAllProducts
      *
      * Displays all products
-     * in GUI to user
+     * in View to user
      *
      * @throws SQLException
      */

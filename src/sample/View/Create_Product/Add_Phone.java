@@ -1,9 +1,16 @@
-package sample;
+package sample.View.Create_Product;
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
 
 
 //-----------------//
@@ -19,11 +26,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Database.DB_Edit;
+import sample.View.HomePage.Display_Options;
+import sample.Model.Phone;
 
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT1_Add_Phone {
+public class Add_Phone {
 
 
 
@@ -74,7 +84,9 @@ public class OPT1_Add_Phone {
         Label phoneSaved = new Label("Product Saved");
         phoneSaved.setVisible(false);
         Button returnHomeButton = new Button("Return to main options");
-        PhonereturnToHome.getChildren().addAll(phoneSaved, returnHomeButton);
+        returnHomeButton.setAlignment(Pos.CENTER_LEFT);
+
+        PhonereturnToHome.getChildren().addAll( returnHomeButton,phoneSaved);
         PhonereturnToHome.setSpacing(40);
 
         VBox  addPhone_mainStructure = new VBox();                                                 // create main structure vbox
@@ -148,7 +160,7 @@ public class OPT1_Add_Phone {
 
         returnHomeButton.setOnAction(e-> {
 
-           OPT0_Display_Options.load_Display_Options(primaryStage);
+           Display_Options.load_Display_Options(primaryStage);
 
 
         });

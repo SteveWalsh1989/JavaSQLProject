@@ -1,10 +1,17 @@
-package sample;
+package sample.View.Create_Product;
 
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
 
 //-----------------//
 //    Imports      //
@@ -19,11 +26,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Database.DB_Edit;
+import sample.View.HomePage.Display_Options;
+import sample.Model.TV;
 
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT1_Add_TV {
+public class Add_TV {
 
 
 
@@ -75,9 +85,11 @@ public class OPT1_Add_TV {
         HBox TVreturnToHome = new HBox();
         Label ProductSaved = new Label("Product Saved");
         Button returnHomeButton = new Button("Return to main options");
+        returnHomeButton.setAlignment(Pos.CENTER_LEFT);
+
 
         ProductSaved.setVisible(false);
-        TVreturnToHome.getChildren().addAll(ProductSaved,returnHomeButton);
+        TVreturnToHome.getChildren().addAll(returnHomeButton,ProductSaved);
         TVreturnToHome.setSpacing(30);
 
 
@@ -166,7 +178,7 @@ public class OPT1_Add_TV {
 
         returnHomeButton.setOnAction(e-> {
 
-            OPT0_Display_Options.load_Display_Options(primaryStage);
+            Display_Options.load_Display_Options(primaryStage);
 
 
         });

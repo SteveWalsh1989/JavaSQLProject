@@ -1,4 +1,4 @@
-package sample;
+package sample.Model;
 
 /*****************************
  * Database Design Project
@@ -6,9 +6,10 @@ package sample;
  *
  * Name:       Steve Walsh
  * Student No: R00151053
- * Date      : 26/3/18
+ * Date      : 12/4/18
  *
  *****************************/
+
 
 
 // Tv is a subclass of Product class

@@ -1,9 +1,16 @@
-package sample;
+package sample.View.Create_Order;
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
 
 
 
@@ -22,7 +29,7 @@ import javafx.stage.Stage;
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT3_Select_Customer_Type {
+public class Choose_Customer_Type {
 
 
 
@@ -81,7 +88,7 @@ public class OPT3_Select_Customer_Type {
 
         newCustomer.setOnAction(e-> {                                   //  Option 1: new customer
 
-            OPT3_Create_New_Customer.load_Create_New_Customer(primaryStage); // load OPT3_Create_New_Customer scene
+            Create_New_Customer.load_Create_New_Customer(primaryStage); // load Create_New_Customer scene
 
         });
 
@@ -91,7 +98,7 @@ public class OPT3_Select_Customer_Type {
 
 
 
-            OPT3_Log_Existing_Customer.load_Log_Existing_Customer(primaryStage);  // load OPT3_Log_Existing_Customer scene
+            Log_Existing_Customer.load_Log_Existing_Customer(primaryStage);  // load Log_Existing_Customer scene
 
         });
 

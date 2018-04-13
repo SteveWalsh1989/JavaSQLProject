@@ -1,4 +1,5 @@
-package sample;
+package sample.Model;
+
 
 /*****************************
  * Database Design Project
@@ -6,9 +7,10 @@ package sample;
  *
  * Name:       Steve Walsh
  * Student No: R00151053
- * Date      : 26/3/18
+ * Date      : 12/4/18
  *
  *****************************/
+
 
 //---------------//
 //    Class      //
@@ -22,7 +24,7 @@ public abstract class Product {
     private String name;
     private String description;
     private double price;
-    static int count = 0;        // keep track of number of products and used to create unique product ID
+    public static int count = 0;        // keep track of number of products and used to create unique product ID
     private int productID = 1;
 
     //----------------------------//

@@ -1,4 +1,4 @@
-package sample;
+package sample.View.Create_Order;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,12 +9,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import static sample.Controller.currentCustomerID;
+import sample.Database.DB_Display;
+import sample.Database.DB_Edit;
+import sample.View.HomePage.Display_Options;
 
-/**
- * Created by Steve on 11/04/2018.
- */
-public class OPT3_Create_New_Customer {
+import static sample.Controller.Controller.currentCustomerID;
+
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
+
+public class Create_New_Customer {
 
 
 
@@ -24,7 +36,7 @@ public class OPT3_Create_New_Customer {
 
 
         // title
-        Label addCustomerDetailsTitle = new Label("Add details:");         // label for title of page
+        Label addCustomerDetailsTitle = new Label("Add details To Create New Customer Account:");  // label for title of page
         addCustomerDetailsTitle.setAlignment(Pos.CENTER);                       // center label
 
         // store name
@@ -75,7 +87,7 @@ public class OPT3_Create_New_Customer {
 
         // Proceed to order
         HBox proceedToOrderBox = new HBox();                                          // main structure
-        proceedToOrderBox.setAlignment(Pos.CENTER);                                   // center label
+        proceedToOrderBox.setAlignment(Pos.CENTER_LEFT);                                   // center label
         proceedToOrderBox.setSpacing(50);                                             // spacing for box's children
         Button proceedToOrderButton = new Button("Proceed to Order");            // proceed to order button
         proceedToOrderBox.getChildren().add(proceedToOrderButton);                    // add button to mbox
@@ -138,7 +150,7 @@ public class OPT3_Create_New_Customer {
 
         returnHomeButton.setOnAction(e-> {
 
-            OPT0_Display_Options.load_Display_Options(primaryStage);
+            Display_Options.load_Display_Options(primaryStage);
 
 
         });

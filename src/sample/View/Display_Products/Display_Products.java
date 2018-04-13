@@ -1,10 +1,18 @@
-package sample;
+package sample.View.Display_Products;
 
 
 
-/**
- * Created by Steve on 11/04/2018.
- */
+
+/*****************************
+ * Database Design Project
+ *
+ *
+ * Name:       Steve Walsh
+ * Student No: R00151053
+ * Date      : 12/4/18
+ *
+ *****************************/
+
 
 
 
@@ -21,12 +29,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.Database.DB_Display;
+import sample.Database.DB_Edit;
+import sample.View.HomePage.Display_Options;
+
 import java.sql.SQLException;
 
 //-----------------//
 //    Class        //
 //-----------------//
-public class OPT2_Display_Products {
+public class Display_Products {
 
 
 
@@ -116,7 +128,7 @@ public class OPT2_Display_Products {
 
             try {
                 DB_Display.displayAllProducts(orderPhoneByIDQuery,orderTVByIDQuery,
-                                            displayPhonesBox,displayTVBox );                               // access database to add phones to scroll pane
+                                            displayPhonesBox,displayTVBox );         // access database to add phones to scroll pane
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -175,7 +187,7 @@ public class OPT2_Display_Products {
 
         returnButton.setOnAction(e-> {                                 // Return home when adding new product
 
-            OPT0_Display_Options.load_Display_Options(primaryStage);        // return to home page
+            Display_Options.load_Display_Options(primaryStage);        // return to home page
 
             displayPhonesBox.setContent(null);                         // remove data from scrollPane
 
