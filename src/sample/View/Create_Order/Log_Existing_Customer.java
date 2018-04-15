@@ -28,12 +28,6 @@ import static sample.View.Create_Order.Create_Order.load_Create_Order;
 
 public class Log_Existing_Customer {
 
-
-
-
-
-
-
     public static void load_Log_Existing_Customer(Stage primaryStage) {
 
 
@@ -52,11 +46,11 @@ public class Log_Existing_Customer {
 
         // store address
         HBox  existingCustomerNameStructure = new HBox();                            // structure to hold address label and field
-        existingCustomerNameStructure.setAlignment(Pos.CENTER_LEFT);                   // center label
-        existingCustomerNameStructure.setSpacing(50);                                  // spacing for box's children
+        existingCustomerNameStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
+        existingCustomerNameStructure.setSpacing(50);                                // spacing for box's children
         Label existingCustomerNameLabel     = new Label("name:");;              // label asking for address
         TextField storeExistingCustomerName = new TextField();                       // textfield to store address
-        storeExistingCustomerName.setPromptText("Ex: Cork");                         // prompt text for textfield
+        storeExistingCustomerName.setPromptText("Ex: Steve");                        // prompt text for textfield
         existingCustomerNameStructure.getChildren().addAll(existingCustomerNameLabel,// add label and textfield to box
                 storeExistingCustomerName );
 
@@ -143,6 +137,17 @@ public class Log_Existing_Customer {
 
         });
 
+        existingCustomerClearButton.setOnAction(e-> {                                 // load create order scene
+
+            storeCustomerID.clear();
+
+            storeExistingCustomerName.clear();
+
+
+
+
+
+        });
 
         proceedToOrderButton.setOnAction(e-> {                                 // load create order scene
 

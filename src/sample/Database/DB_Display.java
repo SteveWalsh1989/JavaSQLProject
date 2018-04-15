@@ -1,12 +1,11 @@
 package sample.Database;
 /**
  *
- *   Contains methods that allow for displaying data to the database
+ *   Contains methods that allow for displaying data from the database
  *
  *
  *
  */
-
 
 
 //-----------------//
@@ -21,7 +20,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sample.Model.Product;
-
 import java.sql.*;
 
 //---------------//
@@ -311,6 +309,17 @@ return customerID;
         return customerName;
     }
 
+
+
+    /**
+     *
+     * getCustomerID
+     *
+     *
+     * uses customer name and returns customer ID
+     *
+     *
+     */
     public static int getCustomerID(String customerName){
 
         int customerID = -1;
@@ -385,6 +394,16 @@ return customerID;
         return customerID;
     }
 
+
+    /**
+     *
+     * getProductNum
+     *
+     *
+     * gets count of total number of products
+     *
+     *
+     */
     public static void getProductNum(){
 
 
@@ -472,6 +491,18 @@ return customerID;
     }
 
 
+
+    /**
+     * displayInComboxBox
+     *
+     * displays row from table in combo box
+     *
+     *
+     * @param query
+     * @param columnName
+     * @param comboBox
+     * @throws SQLException
+     */
     public static void displayInComboxBox(String query,String columnName,  ComboBox comboBox) throws SQLException {
 
 
@@ -512,9 +543,15 @@ return customerID;
     }
 
 
-
-
-
+    /**
+     * displayPhoneOrderSelected
+     *
+     * displays details of phone ordered by customer
+     *
+     * @param query
+     * @param structure
+     * @throws SQLException
+     */
     public static void displayPhoneOrderSelected(String query, HBox structure) throws SQLException {
 
 
@@ -581,10 +618,16 @@ return customerID;
     }
 
 
-
-
-
-
+    /**
+     * displayTVOrderSelected
+     *
+     *
+     * Displays details of TV ordered by customer
+     *
+     * @param query
+     * @param structure
+     * @throws SQLException
+     */
     public static void displayTVOrderSelected(String query, HBox structure) throws SQLException {
 
 
@@ -653,7 +696,15 @@ return customerID;
     }
 
 
-
+    /**
+     * displayOrders
+     *
+     * Displays all orders
+     *
+     *
+     * @param pane
+     * @throws SQLException
+     */
     public static void displayOrders(ScrollPane pane) throws SQLException {
 
 
@@ -721,7 +772,15 @@ return customerID;
         st.close();
     }
 
-
+    /**
+     * displayOrders
+     *
+     * Displays all orders by customer name
+     *
+     *
+     * @param pane
+     * @throws SQLException
+     */
     public static void displayOrdersByCustomer(ScrollPane pane) throws SQLException {
 
         pane.setContent(null);
@@ -752,7 +811,7 @@ return customerID;
         pane.setContent(null);  // clear pane
 
 
-        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by c.name desc";
+        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by c.name asc";
 
 
 
@@ -792,7 +851,15 @@ return customerID;
 
 
 
-
+    /**
+     * displayOrders
+     *
+     * Displays all orders by product price
+     *
+     *
+     * @param pane
+     * @throws SQLException
+     */
     public static void displayOrdersByPrice(ScrollPane pane) throws SQLException {
 
         pane.setContent(null);

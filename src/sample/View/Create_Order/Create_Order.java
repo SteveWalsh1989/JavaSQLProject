@@ -202,7 +202,7 @@ public class Create_Order {
                                                                 phoneStorageType,phonePriceType);
 
                         // display
-                        String displayMake = "Select make from Phone";
+                        String displayMake = "Select DISTINCT make from Phone";
 
 
                         try {
@@ -230,7 +230,7 @@ public class Create_Order {
 
 
                         // display
-                        String displayMake = "Select make from TV";
+                        String displayMake = "Select DISTINCT make from TV";
 
 
                         try {
@@ -262,7 +262,7 @@ public class Create_Order {
             confirmOrder.setDisable(true);
 
 
-            String query = "Select model from Phone where make = \"" + phoneMakeType.getValue() +"\"";
+            String query = "Select DISTINCT  model from Phone where make = \"" + phoneMakeType.getValue() +"\"";
 
             try {
                 DB_Display.displayInComboxBox(query, "model", phoneModelType);
@@ -278,7 +278,7 @@ public class Create_Order {
             phonePriceType.getItems().clear();
             confirmOrder.setDisable(true);
 
-            String query = "Select storage from Phone where model = \"" + phoneModelType.getValue() +"\"";
+            String query = "Select DISTINCT storage from Phone where model = \"" + phoneModelType.getValue() +"\"";
 
             try {
                 DB_Display.displayInComboxBox(query, "storage", phoneStorageType);
@@ -296,7 +296,7 @@ public class Create_Order {
 
 
 
-            String query = "Select price from Phone where storage = \"" + phoneStorageType.getValue()
+            String query = "Select DISTINCT  price from Phone where storage = \"" + phoneStorageType.getValue()
                                                   +"\" and  model = \"" + phoneModelType.getValue() +"\" ";
 
             try {
@@ -340,7 +340,7 @@ public class Create_Order {
             confirmOrder.setDisable(true);
 
 
-            String query = "Select type from TV where make = \"" + tvModelType.getValue() +"\"";
+            String query = "Select DISTINCT  type from TV where make = \"" + tvModelType.getValue() +"\"";
 
             try {
                 DB_Display.displayInComboxBox(query, "type", TVType);
@@ -357,7 +357,7 @@ public class Create_Order {
             confirmOrder.setDisable(true);
 
 
-            String query = "Select screen_size from TV where type = \"" + TVType.getValue() +"\"";
+            String query = "Select DISTINCT  screen_size from TV where type = \"" + TVType.getValue() +"\"";
 
             try {
                 DB_Display.displayInComboxBox(query, "screen_size", tvScreenSizeType);
@@ -373,7 +373,7 @@ public class Create_Order {
             confirmOrder.setDisable(true);
 
 
-            String query = "Select price from TV where screen_size = \"" + tvScreenSizeType.getValue() +"\"  and " +
+            String query = "Select DISTINCT  price from TV where screen_size = \"" + tvScreenSizeType.getValue() +"\"  and " +
                                                      " type = \""        + TVType.getValue()  +  "\"";
 
 

@@ -159,6 +159,19 @@ public class Create_New_Customer {
         });
 
 
+
+        newCustomerClearButton.setOnAction(e-> {                                 // load create order scene
+
+            storeCustomerAddress.clear();
+
+            storeCustomerName.clear();
+
+
+
+
+
+        });
+
         returnHomeButton.setOnAction(e-> {                                     // load home page scene
 
             Display_Options.load_Display_Options(primaryStage);

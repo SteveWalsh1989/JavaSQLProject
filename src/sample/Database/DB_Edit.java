@@ -15,6 +15,7 @@ package sample.Database;
 //-----------------//
 
 import java.sql.*;
+import static sample.Controller.Controller.numberProducts;
 
 
 //---------------//
@@ -37,7 +38,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -52,16 +53,18 @@ public class DB_Edit {
         }
 
         if (connection != null) {                                                       // while there is a connection
-            PreparedStatement savePhone = null;
+            PreparedStatement savePhone;
             try {
 
 
 
-                savePhone = connection.prepareCall("INSERT INTO Phone ( make, model, storage, price) VALUES ( ?, ?, ?, ?)");
+                savePhone = connection.prepareCall("INSERT INTO Phone ( make, model, storage, price, id) VALUES ( ?, ?, ?, ?,?)");
                 savePhone.setString(1, make);
                 savePhone.setString(2, model);
                 savePhone.setInt(3, storage);
                 savePhone.setDouble(4, price);
+                savePhone.setInt(5, ++numberProducts);
+
 
                 savePhone.executeUpdate();
 
@@ -87,7 +90,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
         try {
             connection = DriverManager                                                                          //
@@ -101,14 +104,15 @@ public class DB_Edit {
         }
         if (connection != null) {                                                       // while there is a connection
 
-            PreparedStatement saveTV = null;
+            PreparedStatement saveTV;
             try {
 
-                saveTV = connection.prepareCall("INSERT INTO TV ( make, screen_size, type, price) VALUES(?, ?, ?, ?)");
+                saveTV = connection.prepareCall("INSERT INTO TV ( make, screen_size, type, price, id) VALUES(?, ?, ?, ?,?)");
                 saveTV.setString(1, make);
                 saveTV.setInt(2, screenSize);
                 saveTV.setString(3, type);
                 saveTV.setDouble(4, price);
+                saveTV.setInt(5, ++numberProducts);
 
                 int i = saveTV.executeUpdate();
                 connection.close();
@@ -133,7 +137,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
         try {
             connection = DriverManager                                                                          //
@@ -149,9 +153,9 @@ public class DB_Edit {
             return;
         }
         if (connection != null) {                                                       // while there is a connection
-            PreparedStatement saveCustomer = null;
+            PreparedStatement saveCustomer;
             try {
-                saveCustomer = connection.prepareCall("INSERT INTO Customer(name, address) VALUES( ?, ?)");
+                saveCustomer = connection.prepareCall("INSERT INTO Customer( name, address) VALUES(?,  ?, ?)");
                 saveCustomer.setString(1, cstName);
                 saveCustomer.setString(2, cstAddress);
 
@@ -179,7 +183,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
         try {
             connection = DriverManager                                                                          //
@@ -196,8 +200,8 @@ public class DB_Edit {
         }
         if (connection != null) {                                                         // while there is a connection
 
-            PreparedStatement deletePhone = null;
-            PreparedStatement deleteTV = null;
+            PreparedStatement deletePhone;
+            PreparedStatement deleteTV;
 
                 deletePhone = connection.prepareCall("Delete from Phone where id = (?)");       // searched Phone table for ID to delete
                 deletePhone.setInt(1, productID);
@@ -235,7 +239,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
         try {
             connection = DriverManager                                                                          //
@@ -253,7 +257,7 @@ public class DB_Edit {
         if (connection != null) {                                                         // while there is a connection
 
 
-            PreparedStatement saveOrder = null;
+            PreparedStatement saveOrder;
 
             saveOrder = connection.prepareCall(query);       // searched Phone table for ID to delete
 

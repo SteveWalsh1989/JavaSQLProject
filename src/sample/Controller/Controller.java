@@ -8,5 +8,6 @@ public class Controller {
 
     public static int selectedProductID;  // current product ID for placing Orders
 
+    public static int numberProducts;     //  number of products
 
 }

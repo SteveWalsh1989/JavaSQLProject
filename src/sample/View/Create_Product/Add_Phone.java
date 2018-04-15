@@ -138,7 +138,7 @@ public class Add_Phone {
 
             storePhonePrice.clear();                                        // clear input fields
 
-            newPhone.print();                                               // **** TEST : Print newPhone details to console
+          //  newPhone.print();                                               // **** TEST : Print newPhone details to console
         });
 
 

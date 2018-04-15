@@ -85,26 +85,9 @@ public class Display_Orders {
 
         primaryStage.setScene(displayOrdersScene);                                      // makes display orders primary stage scene
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /* ----------------------------------------------------
                   Buttons
            ---------------------------------------------------- */
-
-
-
 
         orderByCustomer.setOnAction(e-> {
 

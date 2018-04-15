@@ -155,7 +155,7 @@ public class Add_TV {
 
             storePrice.clear();                                             // clear input fields
 
-            newTV.print();                                               // **** TEST : Print newTV details to console
+           // newTV.print();                                               // **** TEST : Print newTV details to console
 
         });
 
