@@ -14,10 +14,7 @@ package sample.Database;
 //    Imports      //
 //-----------------//
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 //---------------//
@@ -221,6 +218,54 @@ public class DB_Edit {
 
     }
     }
+
+
+
+    /**
+     * saveCustomer
+     * <p>
+     * adds cuwtomer to DB
+     */
+    public static void saveOrder(String query) throws SQLException {
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");
+
+
+            //
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+        if (connection != null) {                                                         // while there is a connection
+
+
+            PreparedStatement saveOrder = null;
+
+            saveOrder = connection.prepareCall(query);       // searched Phone table for ID to delete
+
+            int i = saveOrder.executeUpdate();
+
+
+            connection.close();
+
+        }
+    }
+
+
 
 }
 

@@ -25,10 +25,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Database.DB_Display;
+import sample.Database.DB_Edit;
 
 import java.sql.SQLException;
 
 import static sample.Controller.Controller.currentCustomerID;
+import static sample.Controller.Controller.selectedProductID;
 import static sample.Database.DB_Display.validateExistingCustomer;
 import static sample.View.Create_Order.Choose_Customer_Type.load_Select_Customer_Type;
 import static sample.View.HomePage.Display_Options.load_Display_Options;
@@ -149,7 +151,7 @@ public class Create_Order {
         // button to confirm
         Button confirmOrder = new Button("Confirm Order");
 
-
+        confirmOrder.setDisable(true);
 
 
         // button to return to homepage
@@ -186,7 +188,10 @@ public class Create_Order {
         // select Product Type
         productType.setOnAction(e-> {
 
-                    if (productType.getValue().equals("Phone")) {                                   // Scenario 1: Phone
+            confirmOrder.setDisable(true);
+
+
+            if (productType.getValue().equals("Phone")) {                                   // Scenario 1: Phone
 
                         //add
                         selectProductTitle.getChildren().addAll(phoneMakeTypeLabel,phoneModelTypeLabel,
@@ -245,13 +250,17 @@ public class Create_Order {
                 });
 
 
-
+        //---------------------//
+        //    Phone boxes      //
+        //---------------------//
         phoneMakeType.setOnAction(e->{
 
 
             phoneModelType.getItems().clear();
             phoneStorageType.getItems().clear();
             phonePriceType.getItems().clear();
+            confirmOrder.setDisable(true);
+
 
             String query = "Select model from Phone where make = \"" + phoneMakeType.getValue() +"\"";
 
@@ -267,6 +276,8 @@ public class Create_Order {
 
             phoneStorageType.getItems().clear();
             phonePriceType.getItems().clear();
+            confirmOrder.setDisable(true);
+
             String query = "Select storage from Phone where model = \"" + phoneModelType.getValue() +"\"";
 
             try {
@@ -281,6 +292,8 @@ public class Create_Order {
 
 
             phonePriceType.getItems().clear();
+            confirmOrder.setDisable(true);
+
 
 
             String query = "Select price from Phone where storage = \"" + phoneStorageType.getValue()
@@ -311,13 +324,21 @@ public class Create_Order {
                 e1.printStackTrace();
             }
 
+            confirmOrder.setDisable(false); // allow user to place order
+
+
         });
 
+        //------------------//
+        //    TV boxes      //
+        //------------------//
         tvModelType.setOnAction(e->{
 
             TVType.getItems().clear();
             tvScreenSizeType.getItems().clear();
             tvPriceType.getItems().clear();
+            confirmOrder.setDisable(true);
+
 
             String query = "Select type from TV where make = \"" + tvModelType.getValue() +"\"";
 
@@ -333,6 +354,7 @@ public class Create_Order {
         TVType.setOnAction(e->{
             tvScreenSizeType.getItems().clear();
             tvPriceType.getItems().clear();
+            confirmOrder.setDisable(true);
 
 
             String query = "Select screen_size from TV where type = \"" + TVType.getValue() +"\"";
@@ -348,6 +370,7 @@ public class Create_Order {
 
         tvScreenSizeType.setOnAction(e->{
             tvPriceType.getItems().clear();
+            confirmOrder.setDisable(true);
 
 
             String query = "Select price from TV where screen_size = \"" + tvScreenSizeType.getValue() +"\"  and " +
@@ -359,6 +382,7 @@ public class Create_Order {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
+
 
         });
 
@@ -377,6 +401,48 @@ public class Create_Order {
                 e1.printStackTrace();
             }
 
+
+            confirmOrder.setDisable(false); // allow user to place order
+
+        });
+
+
+
+
+        //---------------------//
+        //    Other buttons    //
+        //---------------------//
+
+
+
+        confirmOrder.setOnAction(e-> {                                  // confirm order
+
+                String query = null;
+
+
+                if (productType.getValue().equals("Phone")) {           // if phone ordered
+
+                    query = "INSERT INTO DBProject.Orders( productID, customerID, qty, price)" +
+                                                  "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
+                                                             + ",'1'," + "'" +phonePriceType.getValue() +  "');";
+
+
+                } else if (productType.getValue().equals("TV")) {       // if tv ordered
+
+                    query = "INSERT INTO DBProject.Orders( productID, customerID, qty, price)" +
+                            "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
+                            + ",'1'," + "'" +tvPriceType.getValue() +  "');";
+
+                }
+
+
+            try {
+                DB_Edit.saveOrder(query);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+
         });
 
 
@@ -389,10 +455,6 @@ public class Create_Order {
 
             load_Select_Customer_Type(primaryStage);
         });
-
-
-
-
 
 
         returnHome.setOnAction(e-> {                                     // load home page

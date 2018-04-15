@@ -12,7 +12,7 @@ package sample.Database;
 //-----------------//
 //    Imports      //
 //-----------------//
-
+import static sample.Controller.Controller.selectedProductID;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
@@ -311,7 +311,79 @@ return customerID;
         return customerName;
     }
 
+    public static int getCustomerID(String customerName){
 
+        int customerID = -1;
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+        }
+
+
+
+        if (connection != null) {                                                       // while there is a connection
+            Statement stmt = null;
+
+            try {
+                stmt = (Statement) connection.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            ResultSet rs1 = null;
+
+            String query = "SELECT * FROM DBProject.Customer where name =  "+ customerName;
+
+
+            try {
+                rs1 = stmt.executeQuery(query);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                if(rs1.next() ){
+
+                    customerID = rs1.getInt("id") ;
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if(customerID == -1){
+                System.out.println("Error Occured");
+
+            }
+
+        } else {
+            System.out.println("Failed to make connection!");                           // if connection failed print error to console
+        }
+
+
+        return customerID;
+    }
 
     public static void getProductNum(){
 
@@ -489,6 +561,8 @@ return customerID;
             Label PhoneEuro    = new Label("€");
             Label PhonePrice   = new Label(""+rsDetails.getDouble("price"));
 
+            selectedProductID = rsDetails.getInt("id");
+
             PhoneID.setMinWidth(60);
             PhoneMake.setMinWidth(100);
             PhoneModel.setMinWidth(70);
@@ -553,6 +627,9 @@ return customerID;
             Label TVType   = new Label(""+rsDetails.getString("type"));
             Label TVEuro = new Label("€");
             Label TVPrice  = new Label(""+rsDetails.getDouble("price"));
+
+
+            selectedProductID = rsDetails.getInt("id");
 
             TVID.setMinWidth(60);
             TVMake.setMinWidth(100);
