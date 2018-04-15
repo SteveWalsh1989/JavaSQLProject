@@ -15,6 +15,7 @@ package sample.Database;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -150,8 +151,16 @@ public class DB_Display {
 
  }
 
-
-public static int getnewCustomerID(){
+    /**
+     *
+     * getnewCustomerID
+     *
+     * created new customer ID from database and
+     * returns to user when creating new customer
+     *
+     * @return customerID  returns new customerID
+     */
+    public static int getnewCustomerID(){
 
      int customerID = -1;
 
@@ -218,8 +227,16 @@ return customerID;
 }
 
 
-
-
+    /**
+     * validateExistingCustomer
+     *
+     *
+     * takes in customer ID and checks if that customer is in our customer database
+     *
+     *
+     * @param customerID     takes in customer ID to search
+     * @return customerName returns customers name if found
+     */
     public static String validateExistingCustomer(int customerID){
 
         String customerName = null;
@@ -380,6 +397,179 @@ return customerID;
             System.out.println("Failed to make connection!");                           // if connection failed print error to console
         }
 
+    }
+
+
+    public static void displayInComboxBox(String query,String columnName,  ComboBox comboBox) throws SQLException {
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            comboBox.getItems().add(rsDetails.getString(columnName));
+
+        }
+        st.close();
+    }
+
+
+
+
+
+    public static void displayPhoneOrderSelected(String query, HBox structure) throws SQLException {
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+
+        structure.getChildren().clear();
+
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Label PhoneIDLabel = new Label("Order for: ID:");
+            Label PhoneID      = new Label(""+rsDetails.getInt("id"));
+            Label PhoneMake    = new Label(""+rsDetails.getString("make"));
+            Label PhoneModel   = new Label(""+rsDetails.getString("model"));
+            Label PhoneStorage = new Label(""+rsDetails.getInt("storage"));
+            Label PhoneGB      = new Label("GB");
+            Label PhoneEuro    = new Label("€");
+            Label PhonePrice   = new Label(""+rsDetails.getDouble("price"));
+
+            PhoneID.setMinWidth(60);
+            PhoneMake.setMinWidth(100);
+            PhoneModel.setMinWidth(70);
+            PhoneStorage.setMinWidth(27);
+            PhoneGB.setMinWidth(50);
+            PhonePrice.setMinWidth(70);
+
+
+            structure.getChildren().addAll(PhoneIDLabel,PhoneID,PhoneMake,PhoneModel,PhoneStorage,PhoneGB,PhoneEuro,PhonePrice);
+
+
+        }
+
+
+        st.close();
+    }
+
+
+
+    public static void displayTVOrderSelected(String query, HBox structure) throws SQLException {
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+
+        structure.getChildren().clear();
+
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Label TVIDLabel= new Label("ID:");
+            Label TVID     = new Label(""+rsDetails.getInt("id"));
+            Label TVMake   = new Label(""+rsDetails.getString("make"));
+            Label TVScreen = new Label(""+rsDetails.getInt("screen_size"));
+            Label TVInch = new Label("\"");
+            Label TVType   = new Label(""+rsDetails.getString("type"));
+            Label TVEuro = new Label("€");
+            Label TVPrice  = new Label(""+rsDetails.getDouble("price"));
+
+            TVID.setMinWidth(60);
+            TVMake.setMinWidth(100);
+            TVScreen.setMinWidth(17);
+            TVInch.setMinWidth(50);
+            TVType.setMinWidth(70);
+            TVPrice.setMinWidth(70);
+
+
+
+            structure.getChildren().addAll(TVIDLabel,TVID,TVMake,TVScreen,TVInch,TVType,TVEuro,TVPrice);
+
+
+        }
+
+
+        st.close();
     }
 
 

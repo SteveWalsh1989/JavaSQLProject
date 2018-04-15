@@ -14,6 +14,7 @@ import sample.Database.DB_Edit;
 import sample.View.HomePage.Display_Options;
 
 import static sample.Controller.Controller.currentCustomerID;
+import static sample.View.Create_Order.Create_Order.load_Create_Order;
 
 
 /*****************************
@@ -148,7 +149,15 @@ public class Create_New_Customer {
 
 
 
-        returnHomeButton.setOnAction(e-> {
+        proceedToOrderButton.setOnAction(e-> {                                 // load create order scene
+
+            load_Create_Order(primaryStage);
+
+
+        });
+
+
+        returnHomeButton.setOnAction(e-> {                                     // load home page scene
 
             Display_Options.load_Display_Options(primaryStage);
 

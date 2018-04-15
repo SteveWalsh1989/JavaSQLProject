@@ -13,6 +13,7 @@ import sample.Database.DB_Display;
 import sample.View.HomePage.Display_Options;
 
 import static sample.Controller.Controller.currentCustomerID;
+import static sample.View.Create_Order.Create_Order.load_Create_Order;
 
 
 /*****************************
@@ -139,6 +140,14 @@ public class Log_Existing_Customer {
                 invalidCustomer.setVisible(true);                                 // show label with incorrect details
 
             }
+
+        });
+
+
+        proceedToOrderButton.setOnAction(e-> {                                 // load create order scene
+
+            load_Create_Order(primaryStage);
+
 
         });
 

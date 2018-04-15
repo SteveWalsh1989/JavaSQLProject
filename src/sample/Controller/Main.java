@@ -7,7 +7,7 @@ package sample.Controller;
  *
  * Name:       Steve Walsh
  * Student No: R00151053
- * Date      : 12/4/18
+ * Date      : 13/4/18
  *
  *****************************/
 
@@ -22,7 +22,6 @@ import sample.View.HomePage.Display_Options;
 //    Class        //
 //-----------------//
 public class Main extends Application {
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
