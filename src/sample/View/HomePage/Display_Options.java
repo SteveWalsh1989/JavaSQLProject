@@ -10,7 +10,7 @@ package sample.View.HomePage;
  *
  * Name:       Steve Walsh
  * Student No: R00151053
- * Date      : 12/4/18
+ * Date      : 15/4/18
  *
  *****************************/
 
@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import sample.Database.DB_Display;
 import sample.View.Create_Order.Choose_Customer_Type;
 import sample.View.Create_Product.Add_Product;
+import sample.View.Display_Orders.Display_Orders;
 import sample.View.Display_Products.Display_Products;
 
 
@@ -37,11 +38,7 @@ import sample.View.Display_Products.Display_Products;
 public class Display_Options {
 
 
-
-
     public static void load_Display_Options(Stage primaryStage){
-
-
 
         //----------------//
         //     Layout     //
@@ -112,7 +109,6 @@ public class Display_Options {
 
         createProduct.setOnAction(e-> {
 
-
             Add_Product.load_Add_Options(primaryStage);                           // load up the Add_Product Scene
 
          DB_Display.getProductNum();                                              // initialises the product count variable
@@ -124,7 +120,7 @@ public class Display_Options {
         //---------------------------------------//
         displayProducts.setOnAction(e-> {
 
-        Display_Products.load_Display_Products(primaryStage);                 // sets display_Products scene
+        Display_Products.load_Display_Products(primaryStage);                     // sets display_Products scene
 
         });
 
@@ -133,7 +129,7 @@ public class Display_Options {
         //---------------------------------------//
         createOrder.setOnAction(e-> {
 
-            Choose_Customer_Type.load_Select_Customer_Type(primaryStage);     // sets Choose_Customer_Type scene
+            Choose_Customer_Type.load_Select_Customer_Type(primaryStage);         // sets Choose_Customer_Type scene
 
         });
 
@@ -141,6 +137,9 @@ public class Display_Options {
         //    Option 4:  Display Orders          //
         //---------------------------------------//
         displayOrders.setOnAction(e-> {
+
+            Display_Orders.load_Display_Orders(primaryStage);                     // sets display_orders scene
+
 
 
         });
@@ -151,7 +150,7 @@ public class Display_Options {
 
         exit.setOnAction(e->{
 
-            primaryStage.close();                       // closes program
+            primaryStage.close();                                                 // closes program
 
 
         });

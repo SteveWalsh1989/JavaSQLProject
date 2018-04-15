@@ -582,6 +582,9 @@ return customerID;
 
 
 
+
+
+
     public static void displayTVOrderSelected(String query, HBox structure) throws SQLException {
 
 
@@ -649,6 +652,214 @@ return customerID;
         st.close();
     }
 
+
+
+    public static void displayOrders(ScrollPane pane) throws SQLException {
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+
+        pane.setContent(null);  // clear pane
+
+
+        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID";
+
+
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+        VBox detailsBox = new VBox();
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Label Customer = new Label(""+rsDetails.getString(1));
+            Label Make     = new Label(""+rsDetails.getString(2));
+            Label Price    = new Label("€"+rsDetails.getDouble(3));
+
+            Price.setMinWidth(50);
+            Make.setMinWidth(50);
+            Customer.setMinWidth(50);
+
+
+            HBox details = new HBox();
+            details.setSpacing(30);
+            details.setAlignment(Pos.CENTER_LEFT);
+            details.setPadding(new Insets(0,0,0,150));
+
+            details.getChildren().addAll(Customer,Make,Price);
+
+
+            detailsBox.getChildren().add(details);
+        }
+
+        pane.setContent(detailsBox);
+
+        st.close();
+    }
+
+
+    public static void displayOrdersByCustomer(ScrollPane pane) throws SQLException {
+
+        pane.setContent(null);
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+
+        pane.setContent(null);  // clear pane
+
+
+        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by c.name desc";
+
+
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+        VBox detailsBox = new VBox();
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Label Customer = new Label(""+rsDetails.getString(1));
+            Label Make     = new Label(""+rsDetails.getString(2));
+            Label Price    = new Label("€"+rsDetails.getDouble(3));
+
+            Price.setMinWidth(50);
+            Make.setMinWidth(50);
+            Customer.setMinWidth(50);
+
+
+            HBox details = new HBox();
+            details.setSpacing(30);
+            details.setAlignment(Pos.CENTER_LEFT);
+            details.setPadding(new Insets(0,0,0,150));
+
+            details.getChildren().addAll(Customer,Make,Price);
+
+
+            detailsBox.getChildren().add(details);
+        }
+
+        pane.setContent(detailsBox);
+
+        st.close();
+    }
+
+
+
+
+    public static void displayOrdersByPrice(ScrollPane pane) throws SQLException {
+
+        pane.setContent(null);
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+
+
+        pane.setContent(null);  // clear pane
+
+
+        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by p.price desc";
+
+
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+        VBox detailsBox = new VBox();
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Label Customer = new Label(""+rsDetails.getString(1));
+            Label Make     = new Label(""+rsDetails.getString(2));
+            Label Price    = new Label("€"+rsDetails.getDouble(3));
+
+            Price.setMinWidth(50);
+            Make.setMinWidth(50);
+            Customer.setMinWidth(50);
+
+
+            HBox details = new HBox();
+            details.setSpacing(30);
+            details.setAlignment(Pos.CENTER_LEFT);
+            details.setPadding(new Insets(0,0,0,150));
+
+            details.getChildren().addAll(Customer,Make,Price);
+
+
+            detailsBox.getChildren().add(details);
+        }
+
+        pane.setContent(detailsBox);
+
+        st.close();
+    }
 
 
 }

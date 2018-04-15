@@ -135,9 +135,11 @@ public class Create_New_Customer {
 
             String customerAddress = storeCustomerAddress.getText();              // store customer address
 
-            currentCustomerID = DB_Display.getnewCustomerID();                    // get customer ID
 
             DB_Edit.saveCustomer(customerName,customerAddress); // save customer details
+
+
+            currentCustomerID = DB_Display.getnewCustomerID();                    // get customer ID
 
             newCustomerIDLabel.setVisible(true);                                  // show label
             newCustomerID.setVisible(true);                                       // show label

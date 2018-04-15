@@ -151,7 +151,7 @@ public class DB_Edit {
         if (connection != null) {                                                       // while there is a connection
             PreparedStatement saveCustomer = null;
             try {
-                saveCustomer = connection.prepareCall("INSERT INTO Customer VALUES( ?, ?)");
+                saveCustomer = connection.prepareCall("INSERT INTO Customer(name, address) VALUES( ?, ?)");
                 saveCustomer.setString(1, cstName);
                 saveCustomer.setString(2, cstAddress);
 
