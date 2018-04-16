@@ -90,7 +90,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection;                                                                           //
+        Connection connection;
 
         try {
             connection = DriverManager                                                                          //
@@ -155,7 +155,7 @@ public class DB_Edit {
         if (connection != null) {                                                       // while there is a connection
             PreparedStatement saveCustomer;
             try {
-                saveCustomer = connection.prepareCall("INSERT INTO Customer( name, address) VALUES(?,  ?, ?)");
+                saveCustomer = connection.prepareCall("INSERT INTO Customer( name, address) VALUES(?,  ?)");
                 saveCustomer.setString(1, cstName);
                 saveCustomer.setString(2, cstAddress);
 
@@ -168,13 +168,12 @@ public class DB_Edit {
         }
     }
 
-
     /**
      * saveCustomer
      * <p>
-     * adds cuwtomer to DB
+     * adds customer to DB
      */
-    public static void deleteProduct(int productID) throws SQLException {
+    public static void saveCustomer( String cstName, String cstAddress, String cstEmail, String cstPassword) {
 
         try {                                                                                                   //
             Class.forName("com.mysql.jdbc.Driver");                                                             //
@@ -191,7 +190,53 @@ public class DB_Edit {
                             "root", "Ilikefood1");
 
 
-            //
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");              // Print error if connection failed
+            e.printStackTrace();
+            return;
+        }
+        if (connection != null) {                                                       // while there is a connection
+            PreparedStatement saveCustomer;
+            try {
+                saveCustomer = connection.prepareCall("INSERT INTO Customer( name, address, email, password) VALUES(?,?,?,?)");
+                saveCustomer.setString(1, cstName);
+                saveCustomer.setString(2, cstAddress);
+                saveCustomer.setString(3, cstEmail);
+                saveCustomer.setString(4, cstPassword);
+
+
+                int i = saveCustomer.executeUpdate();
+
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * deleteProduct
+     * <p>
+     * deletes product from databaes
+     */
+    public static void deleteProduct(int productID) throws SQLException {
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection;
+
+        try {
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");
+
+
 
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");                // Print error if connection failed
@@ -239,10 +284,10 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection;                                                                           //
+        Connection connection;
 
         try {
-            connection = DriverManager                                                                          //
+            connection = DriverManager
                     .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
                             "root", "Ilikefood1");
 
@@ -256,15 +301,13 @@ public class DB_Edit {
         }
         if (connection != null) {                                                         // while there is a connection
 
+            PreparedStatement saveOrder;                                                  // create prepared statement
 
-            PreparedStatement saveOrder;
+            saveOrder = connection.prepareCall(query);                                    // save customer to database
 
-            saveOrder = connection.prepareCall(query);       // searched Phone table for ID to delete
+            int i = saveOrder.executeUpdate();                                            // execute statement
 
-            int i = saveOrder.executeUpdate();
-
-
-            connection.close();
+            connection.close();                                                           // close connection
 
         }
     }

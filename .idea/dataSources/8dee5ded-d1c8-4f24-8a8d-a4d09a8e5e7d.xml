@@ -30,87 +30,105 @@
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="14" parent="7" name="PRIMARY">
+    <column id="14" parent="7" name="email">
+      <Position>4</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="15" parent="7" name="password">
+      <Position>5</Position>
+      <DataType>varchar(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="16" parent="7" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="15" parent="8" name="productID">
-      <Position>1</Position>
-      <DataType>int(6)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="16" parent="8" name="customerID">
-      <Position>2</Position>
-      <DataType>int(6)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="17" parent="8" name="qty">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="18" parent="8" name="price">
-      <Position>4</Position>
-      <DataType>double|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="19" parent="9" name="id">
+    <column id="17" parent="8" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="20" parent="9" name="make">
+    <column id="18" parent="8" name="Product_ID">
       <Position>2</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
+      <DataType>int(6) unsigned|0</DataType>
     </column>
-    <column id="21" parent="9" name="model">
+    <column id="19" parent="8" name="customer_ID">
       <Position>3</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
+      <DataType>int(6) unsigned|0</DataType>
     </column>
-    <column id="22" parent="9" name="storage">
+    <column id="20" parent="8" name="quantity">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="9" name="price">
+    <column id="21" parent="8" name="price">
       <Position>5</Position>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="24" parent="9" name="PRIMARY">
+    <key id="22" parent="8" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="25" parent="10" name="id">
+    <column id="23" parent="9" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="26" parent="10" name="make">
+    <column id="24" parent="9" name="make">
       <Position>2</Position>
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="27" parent="10" name="screen_size">
+    <column id="25" parent="9" name="model">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="9" name="storage">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="9" name="price">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="28" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="30" parent="10" name="make">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="10" name="screen_size">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="28" parent="10" name="type">
+    <column id="32" parent="10" name="type">
       <Position>4</Position>
       <DataType>varchar(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="10" name="price">
+    <column id="33" parent="10" name="price">
       <Position>5</Position>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="30" parent="10" name="PRIMARY">
+    <key id="34" parent="10" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>

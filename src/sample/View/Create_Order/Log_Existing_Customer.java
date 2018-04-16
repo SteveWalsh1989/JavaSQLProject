@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import sample.Database.DB_Display;
 import sample.View.HomePage.Display_Options;
 
+import java.sql.SQLException;
+
 import static sample.Controller.Controller.currentCustomerID;
 import static sample.View.Create_Order.Create_Order.load_Create_Order;
 
@@ -34,25 +36,33 @@ public class Log_Existing_Customer {
         Label existingCustomerDetailsTitle = new Label("Log In Using Existing Customer Details");     // label for title of page
         existingCustomerDetailsTitle.setAlignment(Pos.CENTER);                                             // center label
 
-        // store name
-        HBox  existingCustomerIDStructure = new HBox();                            // structure to hold name label and field
-        existingCustomerIDStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
-        existingCustomerIDStructure.setSpacing(50);                                // spacing for box's children
-        Label existingCustomerIDLabel     = new Label("ID:     ");            // label asking for name
-        TextField storeCustomerID         = new TextField();                       // textfield to store name
-        storeCustomerID.setPromptText("Ex: 2");                                    // prompt text for textfield
-        existingCustomerIDStructure.getChildren().addAll(existingCustomerIDLabel,  // add label and textfield to box
-                storeCustomerID );
 
-        // store address
+
+        // store name
         HBox  existingCustomerNameStructure = new HBox();                            // structure to hold address label and field
         existingCustomerNameStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
         existingCustomerNameStructure.setSpacing(50);                                // spacing for box's children
-        Label existingCustomerNameLabel     = new Label("name:");// label asking for address
+        Label existingCustomerNameLabel     = new Label("name:");               // label asking for name
+        existingCustomerNameLabel.setMinWidth(100);
         TextField storeExistingCustomerName = new TextField();                       // textfield to store address
         storeExistingCustomerName.setPromptText("Ex: Steve");                        // prompt text for textfield
         existingCustomerNameStructure.getChildren().addAll(existingCustomerNameLabel,// add label and textfield to box
                 storeExistingCustomerName );
+
+
+
+        // store password
+        HBox  existingCustomerPasswordStructure = new HBox();                            // structure to hold address label and field
+        existingCustomerPasswordStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
+        existingCustomerPasswordStructure.setSpacing(50);                                // spacing for box's children
+        Label existingCustomerPasswordLabel     = new Label("Password:");           // label asking for address
+        existingCustomerPasswordLabel.setMinWidth(100);
+        TextField storeExistingCustomerPassword = new TextField();                       // textfield to store address
+        storeExistingCustomerName.setPromptText("Ex: 123456");                           // prompt text for textfield
+        existingCustomerPasswordStructure.getChildren().addAll(existingCustomerPasswordLabel,// add label and textfield to box
+                                                               storeExistingCustomerPassword );
+
+
 
         // submit and clear buttons
         HBox existingCustomerSaveClearButtons = new HBox();                           // structure to hold submit and clear button
@@ -89,17 +99,17 @@ public class Log_Existing_Customer {
         existingCustomerDetails.setSpacing(30);
         existingCustomerDetails.setAlignment(Pos.CENTER_LEFT);
         existingCustomerDetails.setPadding(new Insets(0,0,0,40));
-        existingCustomerDetails.getChildren().addAll(existingCustomerDetailsTitle,existingCustomerIDStructure,
-                existingCustomerNameStructure, existingCustomerSaveClearButtons,
-                validCustomerBox, proceedToOrderBox,returnHomeButton);
+        existingCustomerDetails.getChildren().addAll(existingCustomerDetailsTitle,existingCustomerNameStructure,
+                                                     existingCustomerPasswordStructure, existingCustomerSaveClearButtons,
+                                                     validCustomerBox, proceedToOrderBox,returnHomeButton);
 
 
 
 
 
-        validCustomer.setVisible(false);
-        invalidCustomer.setVisible(false);
-        proceedToOrderButton.setDisable(true);                      // hide place order
+        validCustomer.setVisible(false);                            // hide label
+        invalidCustomer.setVisible(false);                          // hide label
+        proceedToOrderButton.setDisable(true);                      // dont allow to place order until logged in
 
         Scene existingCustomerDetailsScene = new Scene(existingCustomerDetails, 500, 500);
 
@@ -116,19 +126,23 @@ public class Log_Existing_Customer {
 
         existingCustomerSubmitButton.setOnAction(e-> {                            //  Option 2: Existing customer
 
-            int customerID   = Integer.parseInt(storeCustomerID.getText());       // store customer ID
+            String customerName          = storeExistingCustomerName.getText();          // store customer ID
 
-            String customerNameInput = storeExistingCustomerName.getText();       // store customer name
+            String customerPasswordInput = storeExistingCustomerPassword.getText();          // store customer name
 
-            String customerName = DB_Display.validateExistingCustomer(customerID); // checks if customer 12 and name for customer in databse
+            String customerPassword      = null; // checks if password is related to the email entered
+            try {
+                customerPassword = DB_Display.validateExistingCustomer2(customerName);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
 
-            if (customerNameInput.equals(customerName) ){                         // Scenario 1: valid customer
+            if (customerPasswordInput.equals(customerPassword) ){                 // Scenario 1: valid customer as entered correct password
 
                 validCustomer.setVisible(true);                                   // show label
                 proceedToOrderButton.setDisable(false);                           // allow user to place order
                 invalidCustomer.setVisible(false);                                // hide label saying incorrect details
 
-                currentCustomerID = customerID;
             } else {                                                              // Scenario 2: invalid customer
                 validCustomer.setVisible(false);                                  // hide label
                 invalidCustomer.setVisible(true);                                 // show label with incorrect details
@@ -139,7 +153,7 @@ public class Log_Existing_Customer {
 
         existingCustomerClearButton.setOnAction(e-> {                                 // load create order scene
 
-            storeCustomerID.clear();
+            storeExistingCustomerPassword.clear();
 
             storeExistingCustomerName.clear();
 

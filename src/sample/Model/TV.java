@@ -109,18 +109,22 @@ public class TV extends Product {
 
         int choice = 0;
 
-        if ( iType.equals("LED")){
+        switch (iType) {
+            case "LED":
 
-            choice = 1;
+                choice = 1;
 
-        } else if ( iType.equals("LCD")){
+                break;
+            case "LCD":
 
-            choice =2;
+                choice = 2;
 
-        } else if ( iType.equals("Plasma")){
+                break;
+            case "Plasma":
 
 
-            choice = 3;
+                choice = 3;
+                break;
         }
         return choice;
     }

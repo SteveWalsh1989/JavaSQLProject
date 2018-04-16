@@ -11,6 +11,7 @@ package sample.Database;
 //-----------------//
 //    Imports      //
 //-----------------//
+import static sample.Controller.Controller.currentCustomerID;
 import static sample.Controller.Controller.selectedProductID;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -84,7 +85,7 @@ public class DB_Display {
          e.printStackTrace();                                                                                //
          return;                                                                                             //
      }                                                                                                       //    Outputs error message
-     Connection connection = null;                                                                           //
+     Connection connection;                                                                           //
 
 
      try {
@@ -271,6 +272,92 @@ return customerID;
      * takes in customer ID and checks if that customer is in our customer database
      *
      *
+     * @param cstName  takes in customer email to search
+     * @return cstPassword returns customers password  if found
+     */
+    public static String validateExistingCustomer2(String cstName) throws SQLException {
+
+
+
+        String cstPassword = null;
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+        }
+
+
+
+        if (connection != null) {                                                       // while there is a connection
+            Statement stmt = null;
+
+            try {
+                stmt = connection.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            ResultSet rs1 = null;
+
+            String query = "SELECT * FROM DBProject.Customer where name like  \""+ cstName + "\"" ;
+
+
+            try {
+                assert stmt != null;
+                rs1 = stmt.executeQuery(query);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                if(rs1.next() ){
+
+                    cstPassword = rs1.getString("password") ;
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+            System.out.println("Failed to make connection!");                           // if connection failed print error to console
+        }
+
+        System.out.println("TEST: cst password is : " + cstPassword );
+
+        return cstPassword;
+    }
+
+
+    /**
+     * validateExistingCustomer
+     *
+     *
+     * takes in customer ID and checks if that customer is in our customer database
+     *
+     *
      * @param customerID     takes in customer ID to search
      * @return customerName returns customers name if found
      */
@@ -350,7 +437,6 @@ return customerID;
     }
 
 
-
     /**
      *
      * getCustomerID
@@ -405,6 +491,7 @@ return customerID;
 
 
             try {
+                assert stmt != null;
                 rs1 = stmt.executeQuery(query);
 
             } catch (SQLException e) {
@@ -413,6 +500,7 @@ return customerID;
 
 
             try {
+                assert rs1 != null;
                 if(rs1.next() ){
 
                     customerID = rs1.getInt("id") ;
@@ -454,7 +542,7 @@ return customerID;
             e.printStackTrace();                                                        //
             return ;                                                                     //
         }                                                                               //    Outputs error message
-        Connection connection = null;                                                   //
+        Connection connection;                                                   //
 
         try {
             connection = DriverManager                                                                          //
@@ -487,6 +575,7 @@ return customerID;
             ResultSet rs2 = null;
 
             try {
+                assert stmt != null;
                 rs1 = stmt.executeQuery("SELECT COUNT(id) FROM DBProject.Phone");
 
             } catch (SQLException e) {
@@ -494,12 +583,14 @@ return customerID;
             }
 
             try {
+                assert stmt2 != null;
                 rs2 = stmt2.executeQuery("SELECT COUNT(id) FROM DBProject.TV");
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
+                assert rs1 != null;
                 if(rs1.next() ){
                     countPhone= rs1.getInt(1);
                 }
@@ -511,6 +602,7 @@ return customerID;
 
             }
             try {
+                assert rs2 != null;
                 if(rs2.next() ){
                     countTV = rs2.getInt(1);
                 }
@@ -553,7 +645,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -602,7 +694,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -678,7 +770,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -755,7 +847,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -774,7 +866,7 @@ return customerID;
         pane.setContent(null);  // clear pane
 
 
-        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID";
+        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.Product_ID INNER JOIN Customer c ON c.id = o.customer_ID";
 
         Statement st = connection.createStatement();                  // create the java statement
 
@@ -829,7 +921,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {
@@ -908,7 +1000,7 @@ return customerID;
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection = null;                                                                           //
+        Connection connection;                                                                           //
 
 
         try {

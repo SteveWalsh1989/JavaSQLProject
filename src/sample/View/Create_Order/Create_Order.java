@@ -422,7 +422,7 @@ public class Create_Order {
 
                 if (productType.getValue().equals("Phone")) {           // if phone ordered
 
-                    query = "INSERT INTO DBProject.Orders( productID, customerID, qty, price)" +
+                    query = "INSERT INTO DBProject.Orders( product_ID, customer_ID, quantity, price)" +
                                                   "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
                                                              + ",'1'," + "'" +phonePriceType.getValue() +  "');";
 
