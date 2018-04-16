@@ -54,7 +54,7 @@ public class Create_New_Customer {
         HBox  addCustomerAddressStructure = new HBox();                          // structure to hold address label and field
         addCustomerAddressStructure.setAlignment(Pos.CENTER_LEFT);               // center label
         addCustomerAddressStructure.setSpacing(50);                              // spacing for box's children
-        Label addCustomerAddressLabel     = new Label("Address:");;         // label asking for address
+        Label addCustomerAddressLabel     = new Label("Address:");// label asking for address
         TextField storeCustomerAddress    = new TextField();                     // textfield to store address
         storeCustomerAddress.setPromptText("Ex: Cork");                          // prompt text for textfield
         addCustomerAddressStructure.getChildren().addAll(addCustomerAddressLabel,// add label and textfield to box
@@ -73,8 +73,8 @@ public class Create_New_Customer {
         HBox newCustomerIDBox = new HBox();                                      // structure to hold customers new ID
         newCustomerIDBox.setAlignment(Pos.CENTER_LEFT);                          // center label
         newCustomerIDBox.setSpacing(50);                                         // spacing for box's children
-        Label newCustomerIDLabel = new Label("Your ID is: ");;              // label for ID
-        Label newCustomerID = new Label("123 ");;                           // label with ID
+        Label newCustomerIDLabel = new Label("Your ID is: ");// label for ID
+        Label newCustomerID = new Label("123 ");// label with ID
         newCustomerIDBox.getChildren().addAll(newCustomerIDLabel,newCustomerID );// add labels to box
 
         // Label to  advise save ID

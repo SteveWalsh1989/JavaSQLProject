@@ -38,7 +38,7 @@ public class DB_Edit {
             e.printStackTrace();                                                                                //
             return;                                                                                             //
         }                                                                                                       //    Outputs error message
-        Connection connection;                                                                           //
+        Connection connection;
 
 
         try {

@@ -158,12 +158,7 @@ public class Add_Phone {
 
 
 
-        returnHomeButton.setOnAction(e-> {
-
-           Display_Options.load_Display_Options(primaryStage);
-
-
-        });
+        returnHomeButton.setOnAction(e-> Display_Options.load_Display_Options(primaryStage));
 
 
 

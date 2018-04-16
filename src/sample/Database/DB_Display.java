@@ -30,13 +30,50 @@ public class DB_Display {
 
 
     /**
-     * displayAllProducts
      *
-     * Displays all products
-     * in View to user
+     * connectDB
      *
-     * @throws SQLException
+     * checks connection to database
+     *
+     *
      */
+
+    public static String connectDB() throws SQLException {
+
+        String connectionMessage = "Connection Failed";
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return connectionMessage;                                                                                             //
+        }                                                                                                       //    Outputs error message
+        Connection connection = null;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+            connectionMessage = "Connected Successfully";
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return connectionMessage;
+        }
+
+
+        return connectionMessage;
+    }
+
+
+
+
+
  public static void displayAllProducts(String phoneDetailsQuery,String TVDetailsQuery, ScrollPane displayPhoneBox, ScrollPane displayTVBox) throws SQLException {
 
 
@@ -188,7 +225,7 @@ public class DB_Display {
         Statement stmt = null;
 
         try {
-            stmt = (Statement) connection.createStatement();
+            stmt = connection.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -197,6 +234,7 @@ public class DB_Display {
         ResultSet rs1 = null;
 
         try {
+            assert stmt != null;
             rs1 = stmt.executeQuery("SELECT COUNT(id) FROM DBProject.Customer");
 
         } catch (SQLException e) {
@@ -205,6 +243,7 @@ public class DB_Display {
 
 
         try {
+            assert rs1 != null;
             if(rs1.next() ){
                 customerID= rs1.getInt(1);
             }
@@ -268,7 +307,7 @@ return customerID;
             Statement stmt = null;
 
             try {
-                stmt = (Statement) connection.createStatement();
+                stmt = connection.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -280,6 +319,7 @@ return customerID;
 
 
             try {
+                assert stmt != null;
                 rs1 = stmt.executeQuery(query);
 
             } catch (SQLException e) {
@@ -353,7 +393,7 @@ return customerID;
             Statement stmt = null;
 
             try {
-                stmt = (Statement) connection.createStatement();
+                stmt = connection.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -433,13 +473,13 @@ return customerID;
             Statement stmt2 = null;
 
             try {
-                stmt = (Statement) connection.createStatement();
+                stmt = connection.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             try {
-                stmt2 = (Statement) connection.createStatement();
+                stmt2 = connection.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -736,8 +776,6 @@ return customerID;
 
         String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID";
 
-
-
         Statement st = connection.createStatement();                  // create the java statement
 
         ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
@@ -762,7 +800,6 @@ return customerID;
             details.setPadding(new Insets(0,0,0,150));
 
             details.getChildren().addAll(Customer,Make,Price);
-
 
             detailsBox.getChildren().add(details);
         }

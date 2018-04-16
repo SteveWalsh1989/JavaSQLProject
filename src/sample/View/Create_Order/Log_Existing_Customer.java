@@ -48,7 +48,7 @@ public class Log_Existing_Customer {
         HBox  existingCustomerNameStructure = new HBox();                            // structure to hold address label and field
         existingCustomerNameStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
         existingCustomerNameStructure.setSpacing(50);                                // spacing for box's children
-        Label existingCustomerNameLabel     = new Label("name:");;              // label asking for address
+        Label existingCustomerNameLabel     = new Label("name:");// label asking for address
         TextField storeExistingCustomerName = new TextField();                       // textfield to store address
         storeExistingCustomerName.setPromptText("Ex: Steve");                        // prompt text for textfield
         existingCustomerNameStructure.getChildren().addAll(existingCustomerNameLabel,// add label and textfield to box
@@ -157,12 +157,7 @@ public class Log_Existing_Customer {
         });
 
 
-        returnHomeButton.setOnAction(e-> {
-
-            Display_Options.load_Display_Options(primaryStage);
-
-
-        });
+        returnHomeButton.setOnAction(e-> Display_Options.load_Display_Options(primaryStage));
 
 
 

@@ -112,12 +112,7 @@ public class Display_Orders {
 
 
 
-        returnHomeButton.setOnAction(e-> {
-
-            Display_Options.load_Display_Options(primaryStage);
-
-
-        });
+        returnHomeButton.setOnAction(e-> Display_Options.load_Display_Options(primaryStage));
 
 
     }

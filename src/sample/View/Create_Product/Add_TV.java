@@ -176,12 +176,7 @@ public class Add_TV {
 
 
 
-        returnHomeButton.setOnAction(e-> {
-
-            Display_Options.load_Display_Options(primaryStage);
-
-
-        });
+        returnHomeButton.setOnAction(e-> Display_Options.load_Display_Options(primaryStage));
 
 
     }
