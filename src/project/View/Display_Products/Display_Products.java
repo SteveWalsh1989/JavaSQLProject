@@ -1,4 +1,4 @@
-package sample.View.Display_Products;
+package project.View.Display_Products;
 
 
 
@@ -29,10 +29,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.Database.DB_Edit;
-import sample.View.HomePage.Display_Options;
-
+import project.Database.DB_Display;
+import project.Database.DB_Insert;
+import project.View.HomePage.Display_Options;
+import javafx.scene.text.Font;
+import java.awt.*;
 import java.sql.SQLException;
 
 //-----------------//
@@ -44,6 +45,78 @@ public class Display_Products {
 
     public static void load_Display_Products(Stage primaryStage){
 
+
+
+
+        // Phone label
+        Label PhoneTitleLabel = new Label("Phones");                                   // Label for phones
+        double FONT_SIZE = 30.0;
+        PhoneTitleLabel.setFont(new Font("Arial", FONT_SIZE));
+        PhoneTitleLabel.setAlignment(Pos.CENTER_LEFT);
+
+        // Labels : ID, Make, Model, Storage, Price
+        Label phoneIDLabel = new Label("ID");                                        // Label for ID
+
+        phoneIDLabel.setPadding(new Insets(0,40,0,0));             // padding for alignment
+
+        Label phoneMakeLabel = new Label("Make");                                    // Label for Make
+
+        phoneMakeLabel.setPadding(new Insets(0,40,0,0));           // padding for alignment
+
+        Label phoneModelLabel = new Label("Model");                                  // Label for Model
+
+        phoneModelLabel.setPadding(new Insets(0,10,0,0));          // padding for alignment
+
+        Label phoneStorageLabel = new Label("Storage");                              // Label for Storage
+
+        Label phonePriceLabel = new Label("Price");                                  // Label for Price
+
+        HBox phoneLabelStructure = new HBox();
+        phoneLabelStructure.setPadding(new Insets(0,0,0,110));
+        phoneLabelStructure.setSpacing(25);
+        phoneLabelStructure.getChildren().addAll(phoneIDLabel,phoneMakeLabel,phoneModelLabel,
+                phoneStorageLabel,phonePriceLabel);
+
+
+        // scroll pane phones
+        ScrollPane displayPhonesBox = new ScrollPane();                                    // new scroll pane to store the products
+        displayPhonesBox.setMaxHeight(160);
+
+
+        // TV label
+        Label TVTitleLabel = new Label("TVs");                                       // Label for TVs
+        TVTitleLabel.setFont(new Font("Arial", FONT_SIZE));
+        TVTitleLabel.setAlignment(Pos.CENTER_LEFT);                                       // set alignment
+
+// Labels : ID, Make, Model, Storage, Price
+        Label TVIDLabel = new Label("ID");                                        // Label for ID
+
+        TVIDLabel.setPadding(new Insets(0,40,0,0));             // padding for alignment
+
+        Label TVMakeLabel = new Label("Make");                                    // Label for make
+
+        TVMakeLabel.setPadding(new Insets(0,40,0,0));           // padding for alignment
+
+        Label TVScreenSizeLabel = new Label("Screen Size");                       // Label for screen size
+
+        Label TVTypeLabel = new Label("Type");                                    // Label for type
+
+        TVTypeLabel.setPadding(new Insets(0,20,0,0));           // padding for alignment
+
+
+        Label TVPriceLabel = new Label("Price");                                  // Label for Price
+
+        HBox TVLabelStructure = new HBox();
+        TVLabelStructure.setPadding(new Insets(0,0,0,110));
+        TVLabelStructure.setSpacing(25);
+        TVLabelStructure.getChildren().addAll(TVIDLabel,TVMakeLabel,TVScreenSizeLabel,
+                                              TVTypeLabel,TVPriceLabel);
+
+
+
+        // scroll pane TVs
+        ScrollPane displayTVBox = new ScrollPane();                                        // new scroll pane to store the products
+        displayTVBox.setMaxHeight(160);
 
         Label displayOptionsLabel = new Label("Order by: ");                        // label for display options
         displayOptionsLabel.setPadding(new Insets(0,0,0,0));      // set padding
@@ -76,37 +149,20 @@ public class Display_Products {
 
 
 
-        //Phone label
-        Label PhoneTitleLabel = new Label("Phones");                                   // Label for phones
-        PhoneTitleLabel.setAlignment(Pos.CENTER_LEFT);
-
-        // scroll pane phones
-        ScrollPane displayPhonesBox = new ScrollPane();                                    // new scroll pane to store the products
-        displayPhonesBox.setFitToHeight(true);
-
-        // TV label
-        Label TVTitleLabel = new Label("TVs");                                        // Label for TVs
-
-        TVTitleLabel.setAlignment(Pos.CENTER_LEFT);
-
-        // scroll pane TVs
-        ScrollPane displayTVBox = new ScrollPane();                                        // new scroll pane to store the products
-        displayTVBox.setFitToHeight(true);
-
         // return button
         Button returnButton = new Button("Return");                                   // button to return to home
         returnButton.setAlignment(Pos.CENTER);
 
 
         // main structure
-        VBox displayProducts_MainStructure = new VBox();                                                                   // store HBoxes
-        displayProducts_MainStructure.setSpacing(50);                                                                      // set spacing between children
-        displayProducts_MainStructure.setAlignment(Pos.CENTER);                                                            // center main structure
-        displayProducts_MainStructure.getChildren().addAll(  PhoneTitleLabel,displayPhonesBox,// build main structure
-                TVTitleLabel, displayTVBox,deleteProduct, returnButton);
+        VBox displayProducts_MainStructure = new VBox();                                                         // store HBoxes
+        displayProducts_MainStructure.setSpacing(30);                                                            // set spacing between children
+        displayProducts_MainStructure.setAlignment(Pos.CENTER);                                                  // center main structure
+        displayProducts_MainStructure.getChildren().addAll(  PhoneTitleLabel,phoneLabelStructure,displayPhonesBox,// build main structure
+                                                             TVTitleLabel,TVLabelStructure, displayTVBox,
+                                                             deleteProduct, returnButton);
 
-        Scene displayProductsScene = new Scene(displayProducts_MainStructure, 700, 700);                     // Create the Scene // create new scene, add VBOX
-
+        Scene displayProductsScene = new Scene(displayProducts_MainStructure, 700, 700);           // Create the Scene
 
         displayProducts(displayPhonesBox,displayTVBox );
 
@@ -138,8 +194,8 @@ public class Display_Products {
 
             displayProducts_MainStructure.getChildren().removeAll();
 
-            String orderPhonebyMakeQuery = "SELECT * FROM Phone Order By make DESC";     // the  SQL SELECT query.
-            String orderTVbyMakeQuery    = "SELECT * FROM TV Order By make DESC";        // the  SQL SELECT query.
+            String orderPhonebyMakeQuery = "SELECT * FROM Phone Order By make ASC";     // the  SQL SELECT query.
+            String orderTVbyMakeQuery    = "SELECT * FROM TV Order By make ASC";        // the  SQL SELECT query.
 
             try {
                 DB_Display.displayAllProducts(orderPhonebyMakeQuery,orderTVbyMakeQuery,
@@ -174,7 +230,7 @@ public class Display_Products {
 
 
             try {
-                DB_Edit.deleteProduct(productToDelete);                                         // delete product
+                DB_Insert.deleteProduct(productToDelete);                                         // delete product
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

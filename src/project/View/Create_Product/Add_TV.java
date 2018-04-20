@@ -1,4 +1,4 @@
-package sample.View.Create_Product;
+package project.View.Create_Product;
 
 
 
@@ -10,6 +10,10 @@ package sample.View.Create_Product;
  * Name:       Steve Walsh
  * Student No: R00151053
  * Date      : 12/4/18
+ * ***************************
+ *
+ * Scene for adding new TV
+ * to database of products
  *
  *****************************/
 
@@ -26,9 +30,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Edit;
-import sample.View.HomePage.Display_Options;
-import sample.Model.TV;
+import project.Database.DB_Insert;
+import project.View.HomePage.Display_Options;
+import project.Model.TV;
 
 //-----------------//
 //    Class        //
@@ -145,7 +149,7 @@ public class Add_TV {
 
             newTV.setPrice(price);                                          // set price of new tv object
 
-            DB_Edit.saveTV(make, screensize, type, price );  // Save TV to product DB
+            DB_Insert.saveTV(make, screensize, type, price );  // Save TV to product DB
 
             ProductSaved.setVisible(true);
 

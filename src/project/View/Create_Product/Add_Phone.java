@@ -1,4 +1,4 @@
-package sample.View.Create_Product;
+package project.View.Create_Product;
 
 
 
@@ -9,6 +9,12 @@ package sample.View.Create_Product;
  * Name:       Steve Walsh
  * Student No: R00151053
  * Date      : 12/4/18
+ *
+ * ***************************
+ *
+ * Scene for adding new Phone
+ * to database of products
+ *
  *
  *****************************/
 
@@ -26,9 +32,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Edit;
-import sample.View.HomePage.Display_Options;
-import sample.Model.Phone;
+import project.Database.DB_Display;
+import project.Database.DB_Insert;
+import project.View.HomePage.Display_Options;
+import project.Model.Phone;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 //-----------------//
 //    Class        //
@@ -43,21 +53,21 @@ public class Add_Phone {
         addPhone_heading.setAlignment(Pos.CENTER_LEFT);
         addPhone_heading.setPadding(new Insets(30,0,0,0));
 
-        HBox addPhone_make_box   = new HBox();                                     // Ask make of tv
+        HBox addPhone_make_box   = new HBox();                                     // Ask make of phone
         Label addPhone_make  = new Label("Phone make: \t\t");
         TextField storePhoneMake = new TextField();
         storePhoneMake.setPromptText("Samsung");
         addPhone_make_box.getChildren().addAll(addPhone_make, storePhoneMake);
         addPhone_make_box.setAlignment(Pos.CENTER_LEFT);
 
-        HBox addPhone_model_box       = new HBox();                                 // Ask screen size of tv
+        HBox addPhone_model_box       = new HBox();                                 // Ask screen size of phone
         Label addPhone_model_label = new Label("Phone model:\t\t");
         TextField storePhoneModel    = new TextField();
         storePhoneModel.setPromptText("32");
         addPhone_model_box.getChildren().addAll(addPhone_model_label, storePhoneModel);
         addPhone_model_box.setAlignment(Pos.CENTER_LEFT);
 
-        HBox addPhone_storage_box = new HBox();                                       // Ask type of tv
+        HBox addPhone_storage_box = new HBox();                                       // Ask type of phone
         Label addPhone_askStorage= new Label("Phone Storage(GB): \t");
         ComboBox askStorage = new ComboBox();
         askStorage.getItems().addAll(
@@ -66,7 +76,7 @@ public class Add_Phone {
         addPhone_storage_box.getChildren().addAll(addPhone_askStorage, askStorage);
         addPhone_storage_box.setAlignment(Pos.CENTER_LEFT);
 
-        HBox addPhone_price_box = new HBox();                                      // Ask prize of tv
+        HBox addPhone_price_box = new HBox();                                      // Ask prize of phone
         Label addPhone_askPrice = new Label("Phone Price: \t\t");
         TextField storePhonePrice = new TextField();
         storePhonePrice.setPromptText("999");
@@ -82,11 +92,14 @@ public class Add_Phone {
 
         HBox PhonereturnToHome = new HBox();
         Label phoneSaved = new Label("Product Saved");
+        Label phoneAlreadyExists = new Label("Phone Already in System");
+
         phoneSaved.setVisible(false);
-        Button returnHomeButton = new Button("Return to main options");
+        phoneAlreadyExists.setVisible(false);
+        Button returnHomeButton = new Button("Return Home");
         returnHomeButton.setAlignment(Pos.CENTER_LEFT);
 
-        PhonereturnToHome.getChildren().addAll( returnHomeButton,phoneSaved);
+        PhonereturnToHome.getChildren().addAll( returnHomeButton,phoneSaved,phoneAlreadyExists);
         PhonereturnToHome.setSpacing(40);
 
         VBox  addPhone_mainStructure = new VBox();                                                 // create main structure vbox
@@ -97,7 +110,7 @@ public class Add_Phone {
         addPhone_mainStructure.setSpacing(25);
         addPhone_mainStructure.setPadding(new Insets(0,0,0,30));
 
-        Scene addPhone = new Scene(addPhone_mainStructure, 500, 500);            // Create the Scene // create new scene, add VBOX
+        Scene addPhone = new Scene(addPhone_mainStructure, 500, 500);                // Create the Scene // create new scene, add VBOX
 
 
         primaryStage.setScene(addPhone);
@@ -109,6 +122,8 @@ public class Add_Phone {
 
 
         addPhone_Submit_button.setOnAction(e-> {                            // addPhone
+
+            phoneAlreadyExists.setVisible(false);                           // hide label
 
             Phone newPhone = new Phone();                                   // create new Phone object
 
@@ -128,17 +143,41 @@ public class Add_Phone {
 
             newPhone.setPrice(price);                                       // set price
 
-            DB_Edit.savePhone(make, model, Integer.parseInt(storage), price );  // add Phone to product DB
+            boolean phoneExists = false;
 
-            phoneSaved.setVisible(true);
+            try {
+                ArrayList<Phone> phones = DB_Display.checkDuplicatePhone();   // loads arrayList of existing phones from database
 
-            storePhoneMake.clear();                                         // clear input fields
+                if (phones != null) {                                                    // while not null
 
-            storePhoneModel.clear();                                        // clear input fields
+                    for (Phone phone : phones) {                                         // loop through array List
 
-            storePhonePrice.clear();                                        // clear input fields
+                        if (phone.getMake().equals(newPhone.getMake())            &&     // compare makes
+                                phone.getModel().equals(newPhone.getModel())      &&     // compare models
+                                phone.getStorage().equals(newPhone.getStorage())  &&     // compare storage
+                                phone.getPrice().equals(newPhone.getPrice())) {          // compare price
 
-          //  newPhone.print();                                               // **** TEST : Print newPhone details to console
+                            phoneAlreadyExists.setVisible(true);                        // if all the same show label
+                            phoneExists = true;                                         // set true
+                        }
+                    }
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            if(!phoneExists) {                                                        // while the phone doesnt already exist
+
+                DB_Insert.savePhone(make, model, Integer.parseInt(storage), price );  // add Phone to product DB
+
+                phoneSaved.setVisible(true);
+
+                storePhoneMake.clear();                                         // clear input fields
+
+                storePhoneModel.clear();                                        // clear input fields
+
+                storePhonePrice.clear();                                        // clear input fields
+            }
+          //  newPhone.print();                                             // **** TEST : Print newPhone details to console
         });
 
 

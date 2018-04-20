@@ -1,4 +1,4 @@
-package sample.Model;
+package project.Model;
 
 /*****************************
  * Database Design Project
@@ -96,6 +96,19 @@ public class TV extends Product {
                 this.type = "Plasma" ;                          // sets type to Plasma
                 break;
         }
+        super.setDescription(this.type) ;                       //sets the type to the super description
+    }
+    /**
+     * setType
+     *
+     * set the type of the tv in super class as description
+     *
+     * @param iType - type of tv
+     */
+    public void setType(String iType){
+
+                this.type = iType ;                             // sets type
+
         super.setDescription(this.type) ;                       //sets the type to the super description
     }
     /**

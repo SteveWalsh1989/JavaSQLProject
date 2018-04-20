@@ -1,4 +1,4 @@
-package sample.View.Create_Order;
+package project.View.Create_Order;
 
 
 
@@ -16,6 +16,7 @@ package sample.View.Create_Order;
 //-----------------//
 //    Imports      //
 //-----------------//
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,16 +25,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.Database.DB_Edit;
+import project.Database.DB_Display;
+import project.Database.DB_Insert;
 
 import java.sql.SQLException;
 
-import static sample.Controller.Controller.currentCustomerID;
-import static sample.Controller.Controller.selectedProductID;
-import static sample.Database.DB_Display.validateExistingCustomer;
-import static sample.View.Create_Order.Choose_Customer_Type.load_Select_Customer_Type;
-import static sample.View.HomePage.Display_Options.load_Display_Options;
+import static project.Controller.Controller.currentCustomer;
+import static project.Controller.Controller.currentCustomerID;
+import static project.Controller.Controller.selectedProductID;
+import static project.View.Create_Order.Choose_Customer_Type.load_Select_Customer_Type;
+import static project.View.HomePage.Display_Options.load_Display_Options;
 
 
 //-----------------//
@@ -59,9 +60,7 @@ public class Create_Order {
 
 
         // Logged in as
-        String currentCustomer = validateExistingCustomer(currentCustomerID);          // gets customers name
-
-        Label loggedInAs       = new Label("Logged in as:");                      // label showing who is logged in
+        Label loggedInAs       = new Label("Logged in:");                         // label showing who is logged in
 
         Label loggedInCustomer = new Label(currentCustomer);                           // label with customer's name
 
@@ -78,21 +77,24 @@ public class Create_Order {
 
 
         // product labels
-        Label productTypeLabel     = new Label("Product Type:");               // label showing who is logged in
+        Label productTypeLabel     = new Label("Product Type:");               // label for type
 
-        Label phoneModelTypeLabel  = new Label("Model:");                      // label showing who is logged in
+        Label phoneModelTypeLabel  = new Label("Model:");                      // label  for model
 
-        Label phoneMakeTypeLabel   = new Label("Make:");                       // label showing who is logged in
+        Label phoneMakeTypeLabel   = new Label("Make:");                       // label  for  make
 
-        Label storageTypeLabel     = new Label("Storage:");                    // label showing who is logged in
+        Label storageTypeLabel     = new Label("Storage:");                    // label  for  storage
 
-        Label phonePriceLabel      = new Label("Price:");                      // label showing who is logged in
+        Label phonePriceLabel      = new Label("Price:");                      // label for  price
 
-        Label tvModelLabel         = new Label("Model:");                      // label showing who is logged in
+        Label tvModelLabel         = new Label("Model:");                      // label  for model
 
-        Label tvScreenSizeLabel    = new Label("ScreenSize:");                 // label showing who is logged in
+        Label tvScreenSizeLabel    = new Label("ScreenSize:");                 // label  for screensize
 
-        Label tvTypeLabel          = new Label("Type:");                       // label showing who is logged in
+        Label tvTypeLabel          = new Label("Type:");                       // label  for type
+
+        Label tvPriceLabel         = new Label("Price:");                      // label  for price
+
 
 
         HBox selectProductTitle = new HBox();                                      // structure to store logged in details
@@ -100,6 +102,8 @@ public class Create_Order {
         selectProductTitle.setAlignment(Pos.CENTER);                               // center align logged in box
 
         selectProductTitle.setSpacing(25);
+
+
 
         selectProductTitle.getChildren().add(productTypeLabel);
 
@@ -148,6 +152,12 @@ public class Create_Order {
         displaySelectedProductStructure.setSpacing(15);
 
 
+
+        // Order Saved
+        Label orderSaved = new Label("Order Saved");
+        orderSaved.setVisible(false);
+
+
         // button to confirm
         Button confirmOrder = new Button("Confirm Order");
 
@@ -164,8 +174,8 @@ public class Create_Order {
         createOrderMainStructure.setSpacing(50);
 
         createOrderMainStructure.setAlignment(Pos.CENTER);
-        createOrderMainStructure.getChildren().addAll(title,loggedInStructure,selectProductsVBox,
-                                                      displaySelectedProductStructure, confirmOrder, returnHome);
+        createOrderMainStructure.getChildren().addAll(loggedInStructure,title,selectProductsVBox,
+                                                      displaySelectedProductStructure, confirmOrder,orderSaved, returnHome);
 
 
         // scene
@@ -197,8 +207,14 @@ public class Create_Order {
                         selectProductTitle.getChildren().addAll(phoneMakeTypeLabel,phoneModelTypeLabel,
                                                                 storageTypeLabel, phonePriceLabel);
 
+                selectProductTitle.setAlignment(Pos.CENTER_LEFT);
 
-                        selectProductStructure.getChildren().addAll(phoneMakeType,phoneModelType,   // add Phone filter boxes
+                selectProductTitle.setPadding(new Insets(0,0,0,130));
+                phoneMakeTypeLabel.setPadding(new Insets(0,65,0,0));
+                phoneModelTypeLabel.setPadding(new Insets(0,10,0,0));
+
+
+                selectProductStructure.getChildren().addAll(phoneMakeType,phoneModelType,   // add Phone filter boxes
                                                                 phoneStorageType,phonePriceType);
 
                         // display
@@ -216,6 +232,9 @@ public class Create_Order {
                         selectProductStructure.getChildren().removeAll(tvModelType, TVType,         // remove tv filter boxes
                                                              tvScreenSizeType, tvPriceType);
 
+
+
+
                         selectProductTitle.getChildren().removeAll(tvModelLabel, tvTypeLabel,
                                 tvScreenSizeLabel, tvPriceType);
 
@@ -223,7 +242,15 @@ public class Create_Order {
 
                         //add
                         selectProductTitle.getChildren().addAll(tvModelLabel, tvTypeLabel,
-                                                              tvScreenSizeLabel, tvPriceType);
+                                                              tvScreenSizeLabel, tvPriceLabel);
+
+
+                selectProductTitle.setAlignment(Pos.CENTER_LEFT);
+                selectProductTitle.setPadding(new Insets(0,10,0,125));
+                tvModelLabel.setPadding(new Insets(0,65,0,0));
+                tvTypeLabel.setPadding(new Insets(0,15,0,0));
+
+
 
                         selectProductStructure.getChildren().addAll(tvModelType, TVType,            // add tv filter boxes
                                                                     tvScreenSizeType, tvPriceType);
@@ -419,25 +446,27 @@ public class Create_Order {
 
                 String query = null;
 
+            System.out.println("TEST: currentCustomerID =  " + currentCustomerID );
 
                 if (productType.getValue().equals("Phone")) {           // if phone ordered
 
                     query = "INSERT INTO DBProject.Orders( product_ID, customer_ID, quantity, price)" +
-                                                  "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
-                                                             + ",'1'," + "'" +phonePriceType.getValue() +  "');";
+                            "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
+                            + ",'1'," + "'" +phonePriceType.getValue() +  "');";
 
 
                 } else if (productType.getValue().equals("TV")) {       // if tv ordered
 
-                    query = "INSERT INTO DBProject.Orders( productID, customerID, qty, price)" +
+                    query = "INSERT INTO DBProject.Orders( Product_ID, customer_ID, quantity, price)" +
                             "VALUES( "+ "'"+ selectedProductID + "'" + "," +  "'"+ currentCustomerID + "'"
                             + ",'1'," + "'" +tvPriceType.getValue() +  "');";
 
                 }
 
+            orderSaved.setVisible(true);
 
             try {
-                DB_Edit.saveOrder(query);
+                DB_Insert.saveOrder(query);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

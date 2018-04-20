@@ -1,4 +1,4 @@
-package sample.View.Create_Order;
+package project.View.Create_Order;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,12 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.Database.DB_Edit;
-import sample.View.HomePage.Display_Options;
+import project.Database.DB_Display;
+import project.Database.DB_Insert;
+import project.View.HomePage.Display_Options;
 
-import static sample.Controller.Controller.currentCustomerID;
-import static sample.View.Create_Order.Create_Order.load_Create_Order;
+import static project.Controller.Controller.currentCustomer;
+import static project.Controller.Controller.currentCustomerID;
+import static project.View.Create_Order.Create_Order.load_Create_Order;
 
 
 /*****************************
@@ -27,12 +28,12 @@ import static sample.View.Create_Order.Create_Order.load_Create_Order;
  *
  *****************************/
 
-public class create_new_customer_v2 {
+public class Create_New_Customer {
 
 
 
 
-    public static void load_create_new_customer_v2(Stage primaryStage){
+    public static void load_Create_New_Customer(Stage primaryStage){
 
 
 
@@ -94,21 +95,14 @@ public class create_new_customer_v2 {
         newCustomerSaveClearButtons.getChildren().addAll(newCustomerSubmitButton,// add buttons to  box
                 newCustomerClearButton);
 
-        // Label to  advise of ID
-        HBox newCustomerIDBox = new HBox();                                      // structure to hold customers new ID
-        newCustomerIDBox.setAlignment(Pos.CENTER_LEFT);                          // center label
-        newCustomerIDBox.setSpacing(50);                                         // spacing for box's children
-        Label newCustomerIDLabel = new Label("Your ID is: ");// label for ID
-        Label newCustomerID = new Label("123 ");// label with ID
-        newCustomerIDBox.getChildren().addAll(newCustomerIDLabel,newCustomerID );// add labels to box
+        // Account created
+        HBox newCustomerCreatedBox = new HBox();                                      // structure to hold customers new ID
+        newCustomerCreatedBox.setAlignment(Pos.CENTER_LEFT);                          // center label
+        newCustomerCreatedBox.setSpacing(50);                                         // spacing for box's children
+        Label newCustomerCreatedLabel = new Label("Account Created ");          // label for account created
+        Label newCustomerNotCreatedLabel = new Label("Password must be less than 6 digits in length ");// label for invalid password
+        newCustomerCreatedBox.getChildren().addAll(newCustomerCreatedLabel,newCustomerNotCreatedLabel );// add labels to box
 
-        // Label to  advise save ID
-        HBox newCustomerSaveIDBox = new HBox();                                          // structure to hold customers new ID
-        newCustomerSaveIDBox.setAlignment(Pos.CENTER_LEFT);                              // center label
-        newCustomerSaveIDBox.setSpacing(50);                                             // spacing for box's children
-        Label newCustomerSaveIDLabel = new Label("*** Save your ID as it is " +
-                "required when making new orders ***");  // label for ID
-        newCustomerSaveIDBox.getChildren().add(newCustomerSaveIDLabel );                 // add labels to box
 
 
         // Proceed to order
@@ -129,22 +123,20 @@ public class create_new_customer_v2 {
         addCustomerDetails.getChildren().addAll(addCustomerDetailsTitle,addCustomerNameStructure,
                                                 addCustomerAddressStructure,addCustomerEmailStructure,
                                                 addCustomerPasswordStructure, newCustomerSaveClearButtons,
-                                                newCustomerIDBox,newCustomerSaveIDBox,
+                                                newCustomerCreatedBox,
                                                 proceedToOrderBox,returnHomeButton );
 
 
 
 
 
-
-        newCustomerIDLabel.setVisible(false);                        // hide label initially
-        newCustomerID.setVisible(false);                             // hide label initially
+        newCustomerNotCreatedLabel.setVisible(false);                // hide label initially
+        newCustomerCreatedLabel.setVisible(false);                   // hide label initially
         proceedToOrderButton.setDisable(true);                       // hide place order
-        newCustomerSaveIDLabel.setVisible(false);                    // hide label initially
 
 
 
-        Scene addCustomerDetailsScene = new Scene(addCustomerDetails, 500, 500);
+        Scene addCustomerDetailsScene = new Scene(addCustomerDetails, 500, 550);
 
 
 
@@ -166,21 +158,36 @@ public class create_new_customer_v2 {
 
             String customerPassword = storeCustomerPassword .getText();           // store customer password
 
+            if (customerPassword.length() <=6) {
+
+
+                DB_Insert.saveCustomer(customerName,customerAddress,customerEmail,customerPassword); // save customer details
+
+
+                currentCustomerID = DB_Display.getnewCustomerID();                    // get customer ID
+
+                currentCustomer = customerName;
+
+                newCustomerCreatedLabel.setVisible(true);                    // show label
+                proceedToOrderButton.setDisable(false);                      // allow user to place order
+                newCustomerNotCreatedLabel.setVisible(false);                // hide label initially
+
+
+            }else {
+
+                storeCustomerPassword.clear();                              // clear password which is too long
+
+                newCustomerNotCreatedLabel.setVisible(true);                // hide label initially
+
+
+
+
+            }
 
 
 
 
 
-            DB_Edit.saveCustomer(customerName,customerAddress,customerEmail,customerPassword); // save customer details
-
-
-            currentCustomerID = DB_Display.getnewCustomerID();                    // get customer ID
-
-            newCustomerIDLabel.setVisible(true);                                  // show label
-            newCustomerID.setVisible(true);                                       // show label
-            newCustomerSaveIDLabel.setVisible(true);
-            newCustomerID.setText(""+currentCustomerID);
-            proceedToOrderButton.setDisable(false);                           // allow user to place order
 
         });
 

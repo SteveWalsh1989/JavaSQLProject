@@ -1,4 +1,4 @@
-package sample.Model;
+package project.Model;
 
 
 /*****************************

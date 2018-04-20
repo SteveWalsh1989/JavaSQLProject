@@ -1,21 +1,23 @@
-package sample.View.Create_Order;
+package project.View.Create_Order;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.View.HomePage.Display_Options;
+import project.Database.DB_Display;
+import project.View.HomePage.Display_Options;
 
 import java.sql.SQLException;
 
-import static sample.Controller.Controller.currentCustomerID;
-import static sample.View.Create_Order.Create_Order.load_Create_Order;
+import static project.Controller.Controller.currentCustomer;
+import static project.Controller.Controller.currentCustomerID;
+import static project.View.Create_Order.Create_Order.load_Create_Order;
 
 
 /*****************************
@@ -37,12 +39,11 @@ public class Log_Existing_Customer {
         existingCustomerDetailsTitle.setAlignment(Pos.CENTER);                                             // center label
 
 
-
         // store name
         HBox  existingCustomerNameStructure = new HBox();                            // structure to hold address label and field
         existingCustomerNameStructure.setAlignment(Pos.CENTER_LEFT);                 // center label
         existingCustomerNameStructure.setSpacing(50);                                // spacing for box's children
-        Label existingCustomerNameLabel     = new Label("name:");               // label asking for name
+        Label existingCustomerNameLabel     = new Label("Name:");               // label asking for name
         existingCustomerNameLabel.setMinWidth(100);
         TextField storeExistingCustomerName = new TextField();                       // textfield to store address
         storeExistingCustomerName.setPromptText("Ex: Steve");                        // prompt text for textfield
@@ -57,7 +58,7 @@ public class Log_Existing_Customer {
         existingCustomerPasswordStructure.setSpacing(50);                                // spacing for box's children
         Label existingCustomerPasswordLabel     = new Label("Password:");           // label asking for address
         existingCustomerPasswordLabel.setMinWidth(100);
-        TextField storeExistingCustomerPassword = new TextField();                       // textfield to store address
+        PasswordField storeExistingCustomerPassword = new PasswordField();                       // textfield to store address
         storeExistingCustomerName.setPromptText("Ex: 123456");                           // prompt text for textfield
         existingCustomerPasswordStructure.getChildren().addAll(existingCustomerPasswordLabel,// add label and textfield to box
                                                                storeExistingCustomerPassword );
@@ -111,7 +112,7 @@ public class Log_Existing_Customer {
         invalidCustomer.setVisible(false);                          // hide label
         proceedToOrderButton.setDisable(true);                      // dont allow to place order until logged in
 
-        Scene existingCustomerDetailsScene = new Scene(existingCustomerDetails, 500, 500);
+        Scene existingCustomerDetailsScene = new Scene(existingCustomerDetails, 500, 550);
 
 
 
@@ -139,6 +140,10 @@ public class Log_Existing_Customer {
 
             if (customerPasswordInput.equals(customerPassword) ){                 // Scenario 1: valid customer as entered correct password
 
+                currentCustomer = customerName;
+
+                currentCustomerID = DB_Display.getCustomerID(currentCustomer);
+
                 validCustomer.setVisible(true);                                   // show label
                 proceedToOrderButton.setDisable(false);                           // allow user to place order
                 invalidCustomer.setVisible(false);                                // hide label saying incorrect details
@@ -151,7 +156,7 @@ public class Log_Existing_Customer {
 
         });
 
-        existingCustomerClearButton.setOnAction(e-> {                                 // load create order scene
+        existingCustomerClearButton.setOnAction(e-> {                             // load create order scene
 
             storeExistingCustomerPassword.clear();
 

@@ -1,4 +1,4 @@
-package sample.View.Create_Order;
+package project.View.Create_Order;
 
 
 
@@ -88,7 +88,7 @@ public class Choose_Customer_Type {
 
         newCustomer.setOnAction(e-> {                                   //  Option 1: new customer
 
-            create_new_customer_v2.load_create_new_customer_v2(primaryStage); // load Create_New_Customer scene
+            Create_New_Customer.load_Create_New_Customer(primaryStage); // load Create_New_Customer scene
 
         });
 

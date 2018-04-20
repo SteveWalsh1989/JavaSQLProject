@@ -1,4 +1,4 @@
-package sample.View.Display_Orders;
+package project.View.Display_Orders;
 
 
 
@@ -25,12 +25,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.View.HomePage.Display_Options;
+import project.Database.DB_Display;
+import project.View.HomePage.Display_Options;
 
 import java.sql.SQLException;
 
-import static sample.Database.DB_Display.displayOrders;
+import static project.Database.DB_Display.displayOrders;
 
 
 //-----------------//

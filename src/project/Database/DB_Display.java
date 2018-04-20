@@ -1,4 +1,4 @@
-package sample.Database;
+package project.Database;
 /**
  *
  *   Contains methods that allow for displaying data from the database
@@ -11,8 +11,7 @@ package sample.Database;
 //-----------------//
 //    Imports      //
 //-----------------//
-import static sample.Controller.Controller.currentCustomerID;
-import static sample.Controller.Controller.selectedProductID;
+import static project.Controller.Controller.selectedProductID;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
@@ -20,8 +19,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sample.Model.Product;
+import project.Model.Phone;
+import project.Model.Product;
+import project.Model.TV;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 //---------------//
 //    Class      //
@@ -160,6 +163,7 @@ public class DB_Display {
          Label TVMake   = new Label(""+rsTVDetails.getString("make"));
          Label TVScreen = new Label(""+rsTVDetails.getInt("screen_size"));
          Label TVInch = new Label("\"");
+         TVInch.setPadding(new Insets(0,75,0,0));
          Label TVType   = new Label(""+rsTVDetails.getString("type"));
          Label TVEuro = new Label("€");
          Label TVPrice  = new Label(""+rsTVDetails.getDouble("price"));
@@ -487,7 +491,7 @@ return customerID;
 
             ResultSet rs1 = null;
 
-            String query = "SELECT * FROM DBProject.Customer where name =  "+ customerName;
+            String query = "SELECT DBProject.Customer.id FROM DBProject.Customer where name = \""+ customerName +"\"";
 
 
             try {
@@ -866,13 +870,15 @@ return customerID;
         pane.setContent(null);  // clear pane
 
 
-        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.Product_ID INNER JOIN Customer c ON c.id = o.customer_ID";
+        String query = "SELECT c.name, p.make, p.price FROM DBProject.Orders o INNER JOIN DBProject.Phone p ON p.id = o.Product_ID INNER JOIN DBProject.Customer c ON c.id = o.customer_ID";
 
         Statement st = connection.createStatement();                  // create the java statement
 
         ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
 
         VBox detailsBox = new VBox();
+
+        int i = 0;
 
         while (rsDetails.next())                                     // iterate through the java result set
         {
@@ -894,6 +900,16 @@ return customerID;
             details.getChildren().addAll(Customer,Make,Price);
 
             detailsBox.getChildren().add(details);
+
+
+
+            // TEST
+            String order = " Order No: " + i + "  " + Customer.getText() + "bought a "+  Make.getText() + " for "+  Price.getText() ;
+
+            System.out.println(order);
+             i++;
+
+
         }
 
         pane.setContent(detailsBox);
@@ -940,7 +956,7 @@ return customerID;
         pane.setContent(null);  // clear pane
 
 
-        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by c.name asc";
+        String query = "SELECT c.name, p.make, p.price FROM DBProject.Orders o INNER JOIN DBProject.Phone p ON p.id = o.Product_ID INNER JOIN DBProject.Customer c ON c.id = o.customer_ID order by c.name asc";
 
 
 
@@ -1019,7 +1035,7 @@ return customerID;
         pane.setContent(null);  // clear pane
 
 
-        String query = "SELECT c.name, p.make, p.price FROM Orders o INNER JOIN Phone p ON p.id = o.productID INNER JOIN Customer c ON c.id = o.customerID order by p.price desc";
+        String query = "SELECT c.name, p.make, p.price FROM DBProject.Orders o INNER JOIN DBProject.Phone p ON p.id = o.Product_ID INNER JOIN DBProject.Customer c ON c.id = o.customer_ID order by p.price desc";
 
 
 
@@ -1057,7 +1073,136 @@ return customerID;
         st.close();
     }
 
+    /**
+     * checkDuplicatePhone
+     *
+     * checks if phone already exists in database
+     *
+     * @throws SQLException
+     */
+    public static ArrayList<Phone> checkDuplicatePhone() throws SQLException {
 
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return null;
+        }                                                                                                       //    Outputs error message
+        Connection connection;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return null;
+        }
+
+        String query = "SELECT * FROM Phone Order By id DESC";
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+        ArrayList<Phone> phones = new ArrayList<>();
+
+        while (rsDetails.next())                                     // iterate through the java result set
+        {
+
+            Phone newPhone = new Phone();                              // create new phone
+
+            String make = rsDetails.getString("make");     // get make from database
+            String model = rsDetails.getString("model");   // get model from database
+            String storage = rsDetails.getString("storage");     // get storage from database
+            Double price = rsDetails.getDouble("price");   // get price from database
+
+
+            newPhone.setMake(make);                     //
+            newPhone.setModel(model);                   // set phone attributes
+            newPhone.setStorage(storage);               //
+            newPhone.setPrice(price);                   //
+
+
+            phones.add(newPhone);                       // add phone to arrayList
+        }
+
+
+        st.close();
+
+
+        return phones;
+    }
+
+    /**
+     * checkDuplicateTV
+     *
+     * checks if TV already exists in database
+     *
+     * @throws SQLException
+     */
+    public static ArrayList<TV> checkDuplicateTV() throws SQLException {
+
+
+        try {                                                                                                   //
+            Class.forName("com.mysql.jdbc.Driver");                                                             //
+        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
+            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
+            e.printStackTrace();                                                                                //
+            return null;
+        }                                                                                                       //    Outputs error message
+        Connection connection;                                                                           //
+
+
+        try {
+            connection = DriverManager                                                                          //
+                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
+                            "root", "Ilikefood1");                                               //
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");                                      // Print error if connection failed
+            e.printStackTrace();
+            return null;
+        }
+
+        String query = "SELECT * FROM TV Order By id DESC";
+
+        Statement st = connection.createStatement();                  // create the java statement
+
+        ResultSet rsDetails = st.executeQuery(query);                 // execute the query, and get a java resultset
+
+        ArrayList<TV> Tvs = new ArrayList<>();
+
+        while (rsDetails.next())                                         // iterate through the java result set
+        {
+
+            TV newTV= new TV();                                           // create new tv
+
+            String make    = rsDetails.getString("make");     // get make from database
+            int screenSize = rsDetails.getInt("screen_size"); // get model from database
+            String type    = rsDetails.getString("type");     // get storage from database
+            Double price   = rsDetails.getDouble("price");    // get price from database
+
+
+            newTV.setMake(make);                     //
+            newTV.setScreenSize(screenSize);         // set TV attributes
+            newTV.setType(type);                     //
+            newTV.setPrice(price);                   //
+
+
+            Tvs.add(newTV);                       // add TV to arrayList
+        }
+        st.close();
+
+        return Tvs;
+    }
 }
 
 

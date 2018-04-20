@@ -1,4 +1,4 @@
-package sample.View.HomePage;
+package project.View.HomePage;
 
 
 
@@ -25,11 +25,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sample.Database.DB_Display;
-import sample.View.Create_Order.Choose_Customer_Type;
-import sample.View.Create_Product.Add_Product;
-import sample.View.Display_Orders.Display_Orders;
-import sample.View.Display_Products.Display_Products;
+import project.Database.DB_Display;
+import project.View.Create_Order.Choose_Customer_Type;
+import project.View.Create_Product.Add_Product;
+import project.View.Display_Orders.Display_Orders;
+import project.View.Display_Products.Display_Products;
+
+import java.util.Random;
+
+import static project.Controller.Controller.numberProducts;
 
 
 //-----------------//
@@ -39,6 +43,11 @@ public class Display_Options {
 
 
     public static void load_Display_Options(Stage primaryStage){
+
+
+        Random rand = new Random();                          // random generator
+
+        numberProducts = rand.nextInt(99999) + 1;     // randomises number for product ID
 
         //----------------//
         //     Layout     //

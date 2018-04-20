@@ -1,4 +1,4 @@
-package sample.View.Create_Product;
+package project.View.Create_Product;
 
 
 
@@ -10,6 +10,12 @@ package sample.View.Create_Product;
  * Name:       Steve Walsh
  * Student No: R00151053
  * Date      : 12/4/18
+ *
+ * ***************************
+ *
+ * Displays options to
+ * add Phone or add TV
+ * to database of products
  *
  *****************************/
 //-----------------//

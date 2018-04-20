@@ -1,4 +1,4 @@
-package sample.Database;
+package project.Database;
 
 
 
@@ -15,13 +15,13 @@ package sample.Database;
 //-----------------//
 
 import java.sql.*;
-import static sample.Controller.Controller.numberProducts;
+import static project.Controller.Controller.numberProducts;
 
 
 //---------------//
 //    Class      //
 //---------------//
-public class DB_Edit {
+public class DB_Insert {
 
 
     /**
@@ -122,52 +122,6 @@ public class DB_Edit {
             }
         }
     }
-
-    /**
-     * saveCustomer
-     * <p>
-     * adds cuwtomer to DB
-     */
-    public static void saveCustomer( String cstName, String cstAddress) {
-
-        try {                                                                                                   //
-            Class.forName("com.mysql.jdbc.Driver");                                                             //
-        } catch (ClassNotFoundException e) {                                                                    //      Testing the JDBC
-            System.out.println("MySQL JDBC Driver Not found: Please import");                                   //        connection
-            e.printStackTrace();                                                                                //
-            return;                                                                                             //
-        }                                                                                                       //    Outputs error message
-        Connection connection;                                                                           //
-
-        try {
-            connection = DriverManager                                                                          //
-                    .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
-                            "root", "Ilikefood1");
-
-
-            //
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");              // Print error if connection failed
-            e.printStackTrace();
-            return;
-        }
-        if (connection != null) {                                                       // while there is a connection
-            PreparedStatement saveCustomer;
-            try {
-                saveCustomer = connection.prepareCall("INSERT INTO Customer( name, address) VALUES(?,  ?)");
-                saveCustomer.setString(1, cstName);
-                saveCustomer.setString(2, cstAddress);
-
-                int i = saveCustomer.executeUpdate();
-
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     /**
      * saveCustomer
      * <p>
@@ -236,8 +190,6 @@ public class DB_Edit {
                     .getConnection("jdbc:mysql://localhost:3306/DBProject?autoReconnect=true&useSSL=false", // Connect to DB
                             "root", "Ilikefood1");
 
-
-
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");                // Print error if connection failed
             e.printStackTrace();
@@ -257,12 +209,6 @@ public class DB_Edit {
                 deleteTV.setInt(1, productID);
 
                 int e = deleteTV.executeUpdate();
-
-
-
-
-
-
             connection.close();
 
     }
@@ -300,6 +246,9 @@ public class DB_Edit {
             return;
         }
         if (connection != null) {                                                         // while there is a connection
+
+            System.out.println("TEST SAVE Order:query is : " + query);
+
 
             PreparedStatement saveOrder;                                                  // create prepared statement
 

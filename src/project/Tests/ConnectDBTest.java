@@ -1,6 +1,6 @@
-package sample.Tests;
+package project.Tests;
 
-import sample.Database.DB_Display;
+import project.Database.DB_Display;
 
 import static org.junit.Assert.assertEquals;
 
